@@ -12,16 +12,22 @@ This single app contains both the passenger and driver mode. It works; but is al
 
 
 # Technical Discussion
-I built this app without a custom backend. I’m generalizing, but many ride-sharing apps use a comparatively simple client app that communicates with a complex backend (Figure 1). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (Figure 2).
+I built this app without a custom backend. I’m generalizing, but many ride-sharing apps use a comparatively simple client app that communicates with a complex backend (*Figure 1*). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (*Figure 2*).
 
 My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the complex processing taking place on the client app.
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23324514/14842f20-faa3-11e6-9757-b5bc460647be.jpeg">
+<img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23324456/bddce4e6-faa2-11e6-8b13-50cdb8b7ea48.jpeg">
 
 In a typical ride sharing app, when a passenger requests a pickup, that request goes to the server and that server is tasked with finding nearby drivers and pinging each one in turn to see if they accept the pickup request. In my app, the App itself:
 1. Looks for nearby drivers by consulting a simple list of available drivers.
 2. Finds the nearest driver.
 3. Posts a pickup request in that driver’s directory.
 
-The driver’s app is monitoring that request directory and gives the driver several seconds to respond to that pickup request. If that driver does not respond in time, or decides to “pass” on the pickup, the passenger app then finds the next nearest driver and posts the same request in that driver’s request directory. That process continues until a driver is found or all nearby drivers “pass”. See figure 3 for a detailed diagram of this interaction. 
+The driver’s app is monitoring that request directory and gives the driver several seconds to respond to that pickup request. If that driver does not respond in time, or decides to “pass” on the pickup, the passenger app then finds the next nearest driver and posts the same request in that driver’s request directory. That process continues until a driver is found or all nearby drivers “pass”. See *figure 3* for a detailed diagram of this interaction. 
+
+<img width="800" src="https://cloud.githubusercontent.com/assets/13486833/23324283/a95f8718-faa1-11e6-92c6-55bff8622f80.jpeg">
+
 
 Smartphones are incredibly powerful; instead of building a custom cloud backend, why not use an off-the-shelf backend and the phones themselves to handle the complex precessing? By having client apps do the heavy lifting, the App can scale quickly and precisely, in proportion with the number of users.
 
@@ -36,7 +42,7 @@ No system architecture is perfect, particularly architectures based on absolutes
 
 There are always pros and cons for every approach. The goal should be to take the best from each architecture and combine them in a way that delights users and is totally transparent to them. This experimental app highlights some of the architectural tradeoffs.
 
-## Major Drawback
+## Drawback
 
 The biggest change with this App’s approach is caused by version fragmentation. By preforming the complex processing on the client app, it is harder to change how these processes work, unless the user updates their app to the latest version. For example, if you wanted to change the algorithm that determines the “nearest driver” by increasing the importance of “star rating” at the expense of the driver’s distance, you need to push a new app update to all clients, for that change to take effect.
 
@@ -48,8 +54,6 @@ How do you still allow up-updated users to participate in the App even if the un
 One possible solution is to create server variables for the aspects of the App most likely to change. For example, drivers are each given 10 seconds to decide whether to accept the passenger pickup request or “pass”. That 10 seconds can be a variable that lives on the server, and the backend silently notifies client apps when that number is changed, say to 20 seconds.
 
 It would be fascinating to see a pie-graph breakdown of app versions for the major ride sharing companies. What percentage of their user base is on the latest version and what percentage is still using versions from months ago? Those percentages likely to vary depending on the platform; given the currently larger OS fragmentation on Android, iOS users are more likely to be more updated. But that may be a moot pint: clients of major ride-sharing apps may have a higher propensity to “stay current” with app updates compared to other platform users. It is interesting to note that in December 2016, Uber updated their app four times and Lyft updated their app three times. Regardless of the ability to make changes on the backend, it is clearly still necessary to update the client app often.
-
-
 <br /><br /><br /><br />
 # Image Credits
 
