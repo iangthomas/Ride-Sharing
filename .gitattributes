@@ -1,2 +1,2 @@
-rideSharing/ObjectiveC/* linguist-vendored
-Pods/* linguist-vendored
+$ cat .gitattributes
+*.m linguist-language=Swift
