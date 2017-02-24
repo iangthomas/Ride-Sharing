@@ -80,13 +80,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NpF-bl-F0L">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NpF-bl-F0L" userLabel="Accept Passenger">
                                         <rect key="frame" x="27" y="92" width="49" height="30"/>
                                         <state key="normal" title="Accept">
                                             <color key="titleColor" red="0.46540619170000003" green="0.81115061850000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="acceptPassangerRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fAx-mo-ubi"/>
+                                            <action selector="acceptPassengerRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vyL-4y-iUf"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8Z-gx-Yq5">
@@ -101,10 +101,10 @@
                                             <color key="titleColor" red="0.46540619172015607" green="0.81115061846832559" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="closePassangerRequestView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jNC-zu-cwM"/>
+                                            <action selector="closePassengerRequestView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E9B-uM-gkD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXg-xx-pVE">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXg-xx-pVE" userLabel="Pass Passenger">
                                         <rect key="frame" x="164" y="92" width="49" height="30"/>
                                         <state key="normal" title="Pass">
                                             <color key="titleColor" red="0.46540619170000003" green="0.81115061850000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -156,7 +156,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="startDrivingWithPassanger" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Mr-At-jkV"/>
+                                    <action selector="startDrivingWithPassenger" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hjy-8D-Z2U"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUQ-jR-fip">
@@ -216,7 +216,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="acceptPassanger" destination="NpF-bl-F0L" id="cN8-S2-yjj"/>
+                        <outlet property="acceptPassenger" destination="NpF-bl-F0L" id="ibP-Po-Wha"/>
                         <outlet property="addressLabel" destination="22A-MP-KKH" id="ycB-Wu-CEI"/>
                         <outlet property="blankButton" destination="U5Z-Cs-BBc" id="Dga-Fu-g3D"/>
                         <outlet property="cancelButton" destination="jn9-NJ-vuI" id="Rgp-DK-zOj"/>
@@ -226,8 +226,8 @@
                         <outlet property="countdownLabel" destination="eRx-QV-AYA" id="0Ob-Br-pGJ"/>
                         <outlet property="mapView" destination="Ue0-sZ-rAN" id="AnO-qu-eZw"/>
                         <outlet property="onTripButton" destination="Vr7-gK-Hy6" id="ZiS-lv-hLw"/>
-                        <outlet property="passPassanger" destination="jXg-xx-pVE" id="2Ua-h7-0mx"/>
-                        <outlet property="passangerName" destination="C8Z-gx-Yq5" id="Lww-i3-d0l"/>
+                        <outlet property="passPassenger" destination="jXg-xx-pVE" id="HPe-EV-Brb"/>
+                        <outlet property="passengerName" destination="C8Z-gx-Yq5" id="jQa-hM-3zk"/>
                         <outlet property="pickupRequestView" destination="IlY-Yx-tUg" id="UpH-89-qCh"/>
                         <outlet property="requestButton" destination="v1v-Fi-UuI" id="7hA-BR-mMR"/>
                         <segue destination="HYY-Yq-qo4" kind="show" identifier="settings" id="lFn-sz-EEx"/>

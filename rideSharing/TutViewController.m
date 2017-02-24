@@ -91,7 +91,7 @@
 }
 
 
--(void) nextPage:(NSNotification *) notificaiton {
+-(void) nextPage:(NSNotification *) notification {
     
     TutPageContentViewController *currentVC = self.pageViewController.viewControllers.firstObject;
     
@@ -164,7 +164,7 @@
 }
 
 
-// This not handles when the pages are changed (forward or backward) programaticaly!
+// This not handles when the pages are changed (forward or backward) programmatically!
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     TutPageContentViewController *currentVC = self.pageViewController.viewControllers.firstObject;
     return currentVC.pageIndex;

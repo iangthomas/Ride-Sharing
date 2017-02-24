@@ -29,7 +29,7 @@ static NSString* idInfo;
     NSInteger temp = debugLvl;
     if (level.integerValue >= temp) {
         CLS_LOG(@"%@", content);
-        // Level 3 Very Litte (Warnings Only)
+        // Level 3 Very Little (Warnings Only)
         // Level 2 Some (Debug)
         // Level 1 Everything (Verbose)
     }
@@ -139,7 +139,7 @@ static NSString* idInfo;
 
     NSDateFormatter* formatter  = [[NSDateFormatter alloc] init];
     
-    // these two lines solve an insane bug: one that causee the all the dates and times to fail if the date is in 24 hour time while the device is in 12 hour time
+    // these two lines solve an insane bug: one that causes the all the dates and times to fail if the date is in 24 hour time while the device is in 12 hour time
     [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
 

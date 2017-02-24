@@ -30,15 +30,15 @@
 
 #define kDriverCancelled @"driverCancelled"
 #define kPassengerCancelled @"passengerCancelled"
-#define kPickedUpPassanger @"pickedUpPassanger"
+#define kPickedUpPassenger @"pickedUpPassenger"
 #define kStatus @"status"
 #define kAccepted @"accepted"
 #define kPassed @"passed"
-#define kPassangerDroppedOff @"passangerDroppedOff"
+#define kPassengerDroppedOff @"passengerDroppedOff"
 #define kNoAvailableDrivers @"noAvailableDrivers"
 
 #define kEveryonePassed @"everyonePassed"
-#define kNoResponce @"noResponce"
+#define kNoResponse @"noResponse"
 
 
 #define kLatitude @"latitude"

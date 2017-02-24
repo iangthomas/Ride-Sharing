@@ -135,12 +135,12 @@
     // Dispose of any resources that can be recreated.
 }
 /*
--(void) advNotificaitonPage {
+-(void) advNotificationPage {
     
-    if ([self notificaitonsAllowed]) {
+    if ([self notificationsAllowed]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"nextPage" object:nil];
     } else {
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(advNotificaitonPage) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(advNotificationPage) userInfo:nil repeats:NO];
     }
 }*/
 
@@ -187,7 +187,7 @@
 
 
  /*
-    // check of interent
+    // check of internet
     NetworkStatus theNetworkStatus = [self connectedToInternet];
     if (theNetworkStatus == NotReachable) {
         
@@ -224,7 +224,7 @@
 
 /*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-#warning updaet this breadcrumb
+#warning update this breadcrumb
     [Constants debug:@1 withContent:@"mapView prepareForSegue"];
     
     if ([[segue identifier] isEqualToString:@"statusPage"]) {

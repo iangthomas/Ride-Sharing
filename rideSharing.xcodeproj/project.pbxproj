@@ -12,8 +12,8 @@
 		3C0660541E5F9A7F0082AC98 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660521E5F9A7F0082AC98 /* Constants.m */; };
 		3C0660551E5F9A7F0082AC98 /* driverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */; };
 		3C0660621E5F9A880082AC98 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660561E5F9A880082AC98 /* MapViewController.swift */; };
-		3C0660631E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */; };
-		3C0660641E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */; };
+		3C0660631E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660571E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift */; };
+		3C0660641E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660581E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift */; };
 		3C0660651E5F9A880082AC98 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605A1E5F9A880082AC98 /* Reachability.m */; };
 		3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605B1E5F9A880082AC98 /* settingsViewController.swift */; };
 		3C0660671E5F9A880082AC98 /* SystemStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605D1E5F9A880082AC98 /* SystemStatusViewController.m */; };
@@ -35,8 +35,8 @@
 		3C0660521E5F9A7F0082AC98 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = driverAnnotation.swift; sourceTree = "<group>"; };
 		3C0660561E5F9A880082AC98 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passangerDestinationLocationAnnotation.swift; sourceTree = "<group>"; };
-		3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passangerPickupLocationAnnotation.swift; sourceTree = "<group>"; };
+		3C0660571E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passengerDestinationLocationAnnotation.swift; sourceTree = "<group>"; };
+		3C0660581E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passengerPickupLocationAnnotation.swift; sourceTree = "<group>"; };
 		3C0660591E5F9A880082AC98 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3C06605A1E5F9A880082AC98 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3C06605B1E5F9A880082AC98 /* settingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */,
-				3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */,
-				3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */,
+				3C0660571E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift */,
+				3C0660581E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift */,
 			);
 			name = "Map Annotations";
 			sourceTree = "<group>";
@@ -299,14 +299,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C0660551E5F9A7F0082AC98 /* driverAnnotation.swift in Sources */,
-				3C0660631E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift in Sources */,
+				3C0660631E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift in Sources */,
 				3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */,
 				3C0660671E5F9A880082AC98 /* SystemStatusViewController.m in Sources */,
 				3C0660681E5F9A880082AC98 /* TutPageContentViewController.m in Sources */,
 				3C0660651E5F9A880082AC98 /* Reachability.m in Sources */,
 				3C0660691E5F9A880082AC98 /* TutViewController.m in Sources */,
 				3C06603C1E5F99A90082AC98 /* AppDelegate.swift in Sources */,
-				3C0660641E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift in Sources */,
+				3C0660641E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift in Sources */,
 				3C0660621E5F9A880082AC98 /* MapViewController.swift in Sources */,
 				3C0660541E5F9A7F0082AC98 /* Constants.m in Sources */,
 			);

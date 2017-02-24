@@ -18,8 +18,8 @@ class settingsViewController: UIViewController {
         super.viewDidLoad()
         
     
-        let startingSegmentPossition = UserDefaults.standard.object(forKey: kUserStatusMode) as! Int
-        onOffDutySegmentedControl.selectedSegmentIndex = startingSegmentPossition
+        let startingSegmentPosition = UserDefaults.standard.object(forKey: kUserStatusMode) as! Int
+        onOffDutySegmentedControl.selectedSegmentIndex = startingSegmentPosition
         
         onOffDutySegmentedControl.addTarget(self, action: #selector(settingsViewController.updateSwitch(_:)), for: .valueChanged)
         

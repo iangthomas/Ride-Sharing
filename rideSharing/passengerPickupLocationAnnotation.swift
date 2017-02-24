@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class passangerPickupLocationAnnotation: NSObject, MKAnnotation {
+class passengerPickupLocationAnnotation: NSObject, MKAnnotation {
     
     dynamic var coordinate: CLLocationCoordinate2D
     var title: String?

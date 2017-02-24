@@ -172,7 +172,7 @@
     [self getInitialLocationAuthStatus];
 }
 
-//#warning prehable replace me with the more general method
+//#warning perhaps replace me with the more general method
 -(void)getInitialLocationAuthStatus {
     
     switch ([CLLocationManager authorizationStatus]) {
@@ -253,7 +253,7 @@
 
 
 -(void)deniedAlert {
-    [Constants debug:@1 withContent:@"Showing denied locaiton enabled Alert View"];
+    [Constants debug:@1 withContent:@"Showing denied location enabled Alert View"];
     
     
     UIAlertController* alert3 = [UIAlertController alertControllerWithTitle:@"Turn on Location Services"
@@ -414,7 +414,7 @@
     
     if ([self docentProfileEmpty]) {
         
-        if (emailTextBox.hidden == NO) { // if the user is entering an email address, have the button act like a contine button
+        if (emailTextBox.hidden == NO) { // if the user is entering an email address, have the button act like a continue button
             [self prepForEmailSignup];
             
         } else {
@@ -628,7 +628,7 @@
 }
 
 
--(void) updateGetStartedButton:(NSNotification*) notificaiton {
+-(void) updateGetStartedButton:(NSNotification*) notification {
     
     if ([self docentProfileEmpty] == NO) {
         

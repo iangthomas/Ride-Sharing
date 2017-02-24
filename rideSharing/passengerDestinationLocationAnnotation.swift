@@ -1,5 +1,5 @@
 //
-//  passangerDestinationLocationAnnotation.swift
+//  passengerDestinationLocationAnnotation.swift
 //  ride-sharing
 //
 //  Created by Ian Thomas on 2/16/17.
@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class passangerDestinationLocationAnnotation: NSObject, MKAnnotation {
+class passengerDestinationLocationAnnotation: NSObject, MKAnnotation {
 
     dynamic var coordinate: CLLocationCoordinate2D
    // var title: String?
