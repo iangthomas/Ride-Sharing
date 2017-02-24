@@ -1,3 +1,2 @@
 /.gitattributes export-ignore
-/Pods export-ignore
-/rideSharing/ObjectiveC export-ignore
+/rideSharing/ObjectiveC/* linguist-vendored
