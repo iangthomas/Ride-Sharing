@@ -21,9 +21,7 @@ class settingsViewController: UIViewController {
         let startingSegmentPossition = UserDefaults.standard.object(forKey: kUserStatusMode) as! Int
         onOffDutySegmentedControl.selectedSegmentIndex = startingSegmentPossition
         
-        
         onOffDutySegmentedControl.addTarget(self, action: #selector(settingsViewController.updateSwitch(_:)), for: .valueChanged)
-        
         
         
         let infoDictionary = Bundle.main.infoDictionary
@@ -34,12 +32,14 @@ class settingsViewController: UIViewController {
             
             appVersionLabel.text = "App Version: \(appVersion)\n Build Number: \(buildNumber)\n Build Date: \(buildDate)"
         }
-        
-
     }
     
     func updateSwitch (_ segmentedControl: UISegmentedControl) {
     
         NotificationCenter.default.post(name: Notification.Name("changedUserStatus"), object: segmentedControl.selectedSegmentIndex)
+    }
+    
+    @IBAction func close () {
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -13,7 +13,7 @@ import CoreLocation
 import GeoFire
 
 
-// bug if you make a request, it is acepted, you cancel it and then request a new one, it says no drivers avilable, becaues the datbase require the map to move to refrece it... perhsps jsut clear the driversThatPassed dirctionary once you are on a trip, (nope that already resets, when you press request button...)
+// bug if you make a request, it is accepted, you cancel it and then request a new one, it says no drivers avilable, becaues the datbase require the map to move to refrece it... perhsps jsut clear the driversThatPassed dirctionary once you are on a trip, (nope that already resets, when you press request button...)
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -107,6 +107,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         setupMapViewController()
     }
     
+    @IBAction func settingsButtonTapped (_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "settings", sender: nil)
+    }
     
     func setupUserTypeSwitching () {
     
@@ -116,7 +120,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         NotificationCenter.default.post(name: NSNotification.Name("changedUserStatus"), object: userStatusMode)
     }
-    
     
     func updateStatus (_ theNotification: NSNotification) {
     
@@ -180,7 +183,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
         for annotation in mapView.annotations {
             if annotation is driverAnnotation {
-            mapView.removeAnnotation(annotation)
+                mapView.removeAnnotation(annotation)
             }
         }
     
@@ -949,7 +952,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         self.removePassangerPickupLocationAnnotation()
         
-        let alert = UIAlertController(title: "Sorry", message: "No Available Drivers Nearby", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sorry", message: "There are no available drivers nearby.", preferredStyle: .alert)
         let closeButton = UIAlertAction(title: "Close", style: .destructive, handler: nil)
         alert.addAction(closeButton)
         self.present(alert, animated: true, completion: nil)
