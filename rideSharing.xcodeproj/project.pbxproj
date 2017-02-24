@@ -16,11 +16,11 @@
 		3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605B1E5F9A880082AC98 /* settingsViewController.swift */; };
 		3C06606C1E5F9ABC0082AC98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C06606A1E5F9ABC0082AC98 /* Main.storyboard */; };
 		3C0660711E5F9C120082AC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */; };
-		3C0660801E5FCF3F0082AC98 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660771E5FCF3F0082AC98 /* Constants.m */; };
-		3C0660811E5FCF3F0082AC98 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660791E5FCF3F0082AC98 /* Reachability.m */; };
-		3C0660821E5FCF3F0082AC98 /* SystemStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06607B1E5FCF3F0082AC98 /* SystemStatusViewController.m */; };
-		3C0660831E5FCF3F0082AC98 /* TutPageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06607D1E5FCF3F0082AC98 /* TutPageContentViewController.m */; };
-		3C0660841E5FCF3F0082AC98 /* TutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06607F1E5FCF3F0082AC98 /* TutViewController.m */; };
+		3CDFD71D1E5FD4F00072A0F0 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFD7141E5FD4F00072A0F0 /* Constants.m */; };
+		3CDFD71E1E5FD4F00072A0F0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFD7161E5FD4F00072A0F0 /* Reachability.m */; };
+		3CDFD71F1E5FD4F00072A0F0 /* SystemStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFD7181E5FD4F00072A0F0 /* SystemStatusViewController.m */; };
+		3CDFD7201E5FD4F00072A0F0 /* TutPageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFD71A1E5FD4F00072A0F0 /* TutPageContentViewController.m */; };
+		3CDFD7211E5FD4F00072A0F0 /* TutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFD71C1E5FD4F00072A0F0 /* TutViewController.m */; };
 		596563DFD7C26C0B0AB11AA5 /* Pods_rideSharing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7D7623DB922E6D1CA3960A /* Pods_rideSharing.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,16 +38,16 @@
 		3C06605B1E5F9A880082AC98 /* settingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
 		3C06606B1E5F9ABC0082AC98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3C0660761E5FCF3F0082AC98 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ObjectiveC.h/Constants.h; sourceTree = "<group>"; };
-		3C0660771E5FCF3F0082AC98 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ObjectiveC.h/Constants.m; sourceTree = "<group>"; };
-		3C0660781E5FCF3F0082AC98 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ObjectiveC.h/Reachability.h; sourceTree = "<group>"; };
-		3C0660791E5FCF3F0082AC98 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ObjectiveC.h/Reachability.m; sourceTree = "<group>"; };
-		3C06607A1E5FCF3F0082AC98 /* SystemStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemStatusViewController.h; path = ObjectiveC.h/SystemStatusViewController.h; sourceTree = "<group>"; };
-		3C06607B1E5FCF3F0082AC98 /* SystemStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemStatusViewController.m; path = ObjectiveC.h/SystemStatusViewController.m; sourceTree = "<group>"; };
-		3C06607C1E5FCF3F0082AC98 /* TutPageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutPageContentViewController.h; path = ObjectiveC.h/TutPageContentViewController.h; sourceTree = "<group>"; };
-		3C06607D1E5FCF3F0082AC98 /* TutPageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutPageContentViewController.m; path = ObjectiveC.h/TutPageContentViewController.m; sourceTree = "<group>"; };
-		3C06607E1E5FCF3F0082AC98 /* TutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutViewController.h; path = ObjectiveC.h/TutViewController.h; sourceTree = "<group>"; };
-		3C06607F1E5FCF3F0082AC98 /* TutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutViewController.m; path = ObjectiveC.h/TutViewController.m; sourceTree = "<group>"; };
+		3CDFD7131E5FD4F00072A0F0 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ObjectiveC/Constants.h; sourceTree = "<group>"; };
+		3CDFD7141E5FD4F00072A0F0 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ObjectiveC/Constants.m; sourceTree = "<group>"; };
+		3CDFD7151E5FD4F00072A0F0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ObjectiveC/Reachability.h; sourceTree = "<group>"; };
+		3CDFD7161E5FD4F00072A0F0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ObjectiveC/Reachability.m; sourceTree = "<group>"; };
+		3CDFD7171E5FD4F00072A0F0 /* SystemStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemStatusViewController.h; path = ObjectiveC/SystemStatusViewController.h; sourceTree = "<group>"; };
+		3CDFD7181E5FD4F00072A0F0 /* SystemStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemStatusViewController.m; path = ObjectiveC/SystemStatusViewController.m; sourceTree = "<group>"; };
+		3CDFD7191E5FD4F00072A0F0 /* TutPageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutPageContentViewController.h; path = ObjectiveC/TutPageContentViewController.h; sourceTree = "<group>"; };
+		3CDFD71A1E5FD4F00072A0F0 /* TutPageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutPageContentViewController.m; path = ObjectiveC/TutPageContentViewController.m; sourceTree = "<group>"; };
+		3CDFD71B1E5FD4F00072A0F0 /* TutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutViewController.h; path = ObjectiveC/TutViewController.h; sourceTree = "<group>"; };
+		3CDFD71C1E5FD4F00072A0F0 /* TutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutViewController.m; path = ObjectiveC/TutViewController.m; sourceTree = "<group>"; };
 		6E7D7623DB922E6D1CA3960A /* Pods_rideSharing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rideSharing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45E3C12AF9D775985776192 /* Pods-rideSharing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rideSharing.release.xcconfig"; path = "Pods/Target Support Files/Pods-rideSharing/Pods-rideSharing.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +111,12 @@
 		3C0660721E5FA2650082AC98 /* Tutorial and Login */ = {
 			isa = PBXGroup;
 			children = (
+				3CDFD7171E5FD4F00072A0F0 /* SystemStatusViewController.h */,
+				3CDFD7181E5FD4F00072A0F0 /* SystemStatusViewController.m */,
+				3CDFD7191E5FD4F00072A0F0 /* TutPageContentViewController.h */,
+				3CDFD71A1E5FD4F00072A0F0 /* TutPageContentViewController.m */,
+				3CDFD71B1E5FD4F00072A0F0 /* TutViewController.h */,
+				3CDFD71C1E5FD4F00072A0F0 /* TutViewController.m */,
 			);
 			name = "Tutorial and Login";
 			sourceTree = "<group>";
@@ -130,16 +136,6 @@
 				3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */,
 				3C0660571E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift */,
 				3C0660581E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift */,
-				3C0660761E5FCF3F0082AC98 /* Constants.h */,
-				3C0660771E5FCF3F0082AC98 /* Constants.m */,
-				3C0660781E5FCF3F0082AC98 /* Reachability.h */,
-				3C0660791E5FCF3F0082AC98 /* Reachability.m */,
-				3C06607A1E5FCF3F0082AC98 /* SystemStatusViewController.h */,
-				3C06607B1E5FCF3F0082AC98 /* SystemStatusViewController.m */,
-				3C06607C1E5FCF3F0082AC98 /* TutPageContentViewController.h */,
-				3C06607D1E5FCF3F0082AC98 /* TutPageContentViewController.m */,
-				3C06607E1E5FCF3F0082AC98 /* TutViewController.h */,
-				3C06607F1E5FCF3F0082AC98 /* TutViewController.m */,
 			);
 			name = "Map Annotations";
 			sourceTree = "<group>";
@@ -147,6 +143,10 @@
 		3C0660751E5FA2950082AC98 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3CDFD7131E5FD4F00072A0F0 /* Constants.h */,
+				3CDFD7141E5FD4F00072A0F0 /* Constants.m */,
+				3CDFD7151E5FD4F00072A0F0 /* Reachability.h */,
+				3CDFD7161E5FD4F00072A0F0 /* Reachability.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -300,15 +300,15 @@
 			files = (
 				3C0660551E5F9A7F0082AC98 /* driverAnnotation.swift in Sources */,
 				3C0660631E5F9A880082AC98 /* passengerDestinationLocationAnnotation.swift in Sources */,
-				3C0660811E5FCF3F0082AC98 /* Reachability.m in Sources */,
+				3CDFD71E1E5FD4F00072A0F0 /* Reachability.m in Sources */,
 				3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */,
 				3C06603C1E5F99A90082AC98 /* AppDelegate.swift in Sources */,
-				3C0660841E5FCF3F0082AC98 /* TutViewController.m in Sources */,
+				3CDFD7211E5FD4F00072A0F0 /* TutViewController.m in Sources */,
 				3C0660641E5F9A880082AC98 /* passengerPickupLocationAnnotation.swift in Sources */,
-				3C0660801E5FCF3F0082AC98 /* Constants.m in Sources */,
+				3CDFD71D1E5FD4F00072A0F0 /* Constants.m in Sources */,
 				3C0660621E5F9A880082AC98 /* MapViewController.swift in Sources */,
-				3C0660821E5FCF3F0082AC98 /* SystemStatusViewController.m in Sources */,
-				3C0660831E5FCF3F0082AC98 /* TutPageContentViewController.m in Sources */,
+				3CDFD71F1E5FD4F00072A0F0 /* SystemStatusViewController.m in Sources */,
+				3CDFD7201E5FD4F00072A0F0 /* TutPageContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
