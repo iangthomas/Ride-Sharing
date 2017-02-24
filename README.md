@@ -3,16 +3,16 @@ A MVP of a ride sharing app, like Uber of Lyft.
 
 Could someone make their own minimally viable version of Uber or Lyft in a weekend? **You bet they can.** 
 
-Lyft and Uber are worth millions of dollars but the concept behind their, and other ride sharing apps is, in many ways quite simple. That’s part of it’s power. As an absolute minimum viable product (MVP), there is nothing too technologically challenging behind ride-sharing apps. I often told friends and colleagues that, if someone wanted to, they could make their own ride sharing app in just a weekend. I decided to call myself out on that claim. And this is the working result. The core technology is under 1500 lines of code.
+Lyft and Uber are worth millions of dollars but the concept behind their, and other ride sharing apps is, in many ways quite simple. That’s part of it’s power. As an absolute minimum viable product (MVP), there is nothing too technologically challenging behind ride sharing apps. I often told friends and colleagues that, if someone wanted to, they could make their own ride sharing app in just a weekend. I decided to call myself on that claim and this is the working result. The core technology is under 1500 lines of code.
 
 # Brief Summary <br />
 As a passenger, you can request a pickup from drivers near you.
-As a driver, wait for nearby passengers to request rides. For every pickup request, each nearby rider has the option to “accept” the pickup or “pass” the opportunity.
+As a driver, wait for nearby passengers to request rides. For every pickup request, each nearby driver has the option to “accept” the pickup or “pass” the opportunity.
 This single app contains both the passenger and driver mode. It works; but is also a work in progress.
 
 
 # Technical Discussion
-I built this app without a custom backend. I’m generalizing, but many ride-sharing apps use a comparatively simple client app that communicates with a complex backend (*Figure 1*). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (*Figure 2*).
+I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a complex backend (*Figure 1*). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (*Figure 2*).
 
 My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the complex processing taking place on the client app.
 
@@ -53,19 +53,24 @@ How do you still allow up-updated users to participate in the App even if the un
 ## Potential Solutions 
 One possible solution is to create server variables for the aspects of the App most likely to change. For example, drivers are each given 10 seconds to decide whether to accept the passenger pickup request or “pass”. That 10 seconds can be a variable that lives on the server, and the backend silently notifies client apps when that number is changed, say to 20 seconds.
 
-It would be fascinating to see a pie-graph breakdown of app versions for the major ride sharing companies. What percentage of their user base is on the latest version and what percentage is still using versions from months ago? Those percentages likely to vary depending on the platform; given the currently larger OS fragmentation on Android, iOS users are more likely to be more updated. But that may be a moot pint: clients of major ride-sharing apps may have a higher propensity to “stay current” with app updates compared to other platform users. It is interesting to note that in December 2016, Uber updated their app four times and Lyft updated their app three times. Regardless of the ability to make changes on the backend, it is clearly still necessary to update the client app often.
+It would be fascinating to see a pie-graph breakdown of app versions for the major ride sharing companies. What percentage of their user base is on the latest version and what percentage is still using versions from months ago? Those percentages likely to vary depending on the platform; given the currently larger OS fragmentation on Android, iOS users are more likely to be more updated. But that may be a moot pint: clients of major ride sharing apps may have a higher propensity to “stay current” with app updates compared to other platform users. It is interesting to note that in December 2016, Uber updated their app four times and Lyft updated their app three times. Regardless of the ability to make changes on the backend, it is clearly still necessary to update the client app often.
 <br /><br /><br /><br />
 # Image Credits
 
 1.
 Driver Icon used under the GNU General Public License
 By Elegantthemes
-At: http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/car-icon.html
+Available <a href="http://www.iconarchive.com/show/beautiful-flat-one-color-icons-by-elegantthemes/car-icon.html"> here.</a>
 
 2.
-App Icon used with permission under the creative commons 3.0 license.
+App Icon used with permission under the Creative Commons 3.0 license.
 “clean car” by Gregor Cresnar from the Noun Project.
 Modified by inverting original colors.
+
+3.
+Cloud image used with permission under the Creative Commons 3.0 license.
+By Valery from the Noun Project.
+
 
 <br /><br />
 # Notice
