@@ -8,20 +8,48 @@
 
 /* Begin PBXBuildFile section */
 		3C06603C1E5F99A90082AC98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C06603B1E5F99A90082AC98 /* AppDelegate.swift */; };
-		3C06603E1E5F99A90082AC98 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C06603D1E5F99A90082AC98 /* ViewController.swift */; };
-		3C0660411E5F99A90082AC98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C06603F1E5F99A90082AC98 /* Main.storyboard */; };
-		3C0660431E5F99A90082AC98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C0660421E5F99A90082AC98 /* Assets.xcassets */; };
-		3C0660461E5F99A90082AC98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C0660441E5F99A90082AC98 /* LaunchScreen.storyboard */; };
+		3C06604F1E5F9A5B0082AC98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C06604E1E5F9A5B0082AC98 /* Assets.xcassets */; };
+		3C0660541E5F9A7F0082AC98 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660521E5F9A7F0082AC98 /* Constants.m */; };
+		3C0660551E5F9A7F0082AC98 /* driverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */; };
+		3C0660621E5F9A880082AC98 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660561E5F9A880082AC98 /* MapViewController.swift */; };
+		3C0660631E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */; };
+		3C0660641E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */; };
+		3C0660651E5F9A880082AC98 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605A1E5F9A880082AC98 /* Reachability.m */; };
+		3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605B1E5F9A880082AC98 /* settingsViewController.swift */; };
+		3C0660671E5F9A880082AC98 /* SystemStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605D1E5F9A880082AC98 /* SystemStatusViewController.m */; };
+		3C0660681E5F9A880082AC98 /* TutPageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C06605F1E5F9A880082AC98 /* TutPageContentViewController.m */; };
+		3C0660691E5F9A880082AC98 /* TutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0660611E5F9A880082AC98 /* TutViewController.m */; };
+		3C06606C1E5F9ABC0082AC98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C06606A1E5F9ABC0082AC98 /* Main.storyboard */; };
+		3C0660711E5F9C120082AC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */; };
+		596563DFD7C26C0B0AB11AA5 /* Pods_rideSharing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7D7623DB922E6D1CA3960A /* Pods_rideSharing.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2FF7BB8C652B5BD207730981 /* Pods-rideSharing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rideSharing.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rideSharing/Pods-rideSharing.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0660381E5F99A90082AC98 /* rideSharing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rideSharing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C06603B1E5F99A90082AC98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3C06603D1E5F99A90082AC98 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3C0660401E5F99A90082AC98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3C0660421E5F99A90082AC98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3C0660451E5F99A90082AC98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C0660471E5F99A90082AC98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C06604E1E5F9A5B0082AC98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3C0660501E5F9A7F0082AC98 /* rideSharing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "rideSharing-Bridging-Header.h"; sourceTree = "<group>"; };
+		3C0660511E5F9A7F0082AC98 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		3C0660521E5F9A7F0082AC98 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = driverAnnotation.swift; sourceTree = "<group>"; };
+		3C0660561E5F9A880082AC98 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passangerDestinationLocationAnnotation.swift; sourceTree = "<group>"; };
+		3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passangerPickupLocationAnnotation.swift; sourceTree = "<group>"; };
+		3C0660591E5F9A880082AC98 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3C06605A1E5F9A880082AC98 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3C06605B1E5F9A880082AC98 /* settingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
+		3C06605C1E5F9A880082AC98 /* SystemStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemStatusViewController.h; sourceTree = "<group>"; };
+		3C06605D1E5F9A880082AC98 /* SystemStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemStatusViewController.m; sourceTree = "<group>"; };
+		3C06605E1E5F9A880082AC98 /* TutPageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutPageContentViewController.h; sourceTree = "<group>"; };
+		3C06605F1E5F9A880082AC98 /* TutPageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutPageContentViewController.m; sourceTree = "<group>"; };
+		3C0660601E5F9A880082AC98 /* TutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutViewController.h; sourceTree = "<group>"; };
+		3C0660611E5F9A880082AC98 /* TutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutViewController.m; sourceTree = "<group>"; };
+		3C06606B1E5F9ABC0082AC98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6E7D7623DB922E6D1CA3960A /* Pods_rideSharing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rideSharing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B45E3C12AF9D775985776192 /* Pods-rideSharing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rideSharing.release.xcconfig"; path = "Pods/Target Support Files/Pods-rideSharing/Pods-rideSharing.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +57,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				596563DFD7C26C0B0AB11AA5 /* Pods_rideSharing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		263EE52E75E1210D15AC2F63 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2FF7BB8C652B5BD207730981 /* Pods-rideSharing.debug.xcconfig */,
+				B45E3C12AF9D775985776192 /* Pods-rideSharing.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3C06602F1E5F99A90082AC98 = {
 			isa = PBXGroup;
 			children = (
 				3C06603A1E5F99A90082AC98 /* rideSharing */,
 				3C0660391E5F99A90082AC98 /* Products */,
+				263EE52E75E1210D15AC2F63 /* Pods */,
+				606FB9B22C29657C8BD3CD22 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +95,68 @@
 			isa = PBXGroup;
 			children = (
 				3C06603B1E5F99A90082AC98 /* AppDelegate.swift */,
-				3C06603D1E5F99A90082AC98 /* ViewController.swift */,
-				3C06603F1E5F99A90082AC98 /* Main.storyboard */,
-				3C0660421E5F99A90082AC98 /* Assets.xcassets */,
-				3C0660441E5F99A90082AC98 /* LaunchScreen.storyboard */,
+				3C0660731E5FA26E0082AC98 /* ViewControllers */,
+				3C0660741E5FA27F0082AC98 /* Map Annotations */,
+				3C0660721E5FA2650082AC98 /* Tutorial and Login */,
+				3C0660751E5FA2950082AC98 /* Utilities */,
+				3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */,
+				3C06606A1E5F9ABC0082AC98 /* Main.storyboard */,
+				3C06604E1E5F9A5B0082AC98 /* Assets.xcassets */,
 				3C0660471E5F99A90082AC98 /* Info.plist */,
+				3C0660501E5F9A7F0082AC98 /* rideSharing-Bridging-Header.h */,
 			);
 			path = rideSharing;
+			sourceTree = "<group>";
+		};
+		3C0660721E5FA2650082AC98 /* Tutorial and Login */ = {
+			isa = PBXGroup;
+			children = (
+				3C06605C1E5F9A880082AC98 /* SystemStatusViewController.h */,
+				3C06605D1E5F9A880082AC98 /* SystemStatusViewController.m */,
+				3C06605E1E5F9A880082AC98 /* TutPageContentViewController.h */,
+				3C06605F1E5F9A880082AC98 /* TutPageContentViewController.m */,
+				3C0660601E5F9A880082AC98 /* TutViewController.h */,
+				3C0660611E5F9A880082AC98 /* TutViewController.m */,
+			);
+			name = "Tutorial and Login";
+			sourceTree = "<group>";
+		};
+		3C0660731E5FA26E0082AC98 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3C0660561E5F9A880082AC98 /* MapViewController.swift */,
+				3C06605B1E5F9A880082AC98 /* settingsViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3C0660741E5FA27F0082AC98 /* Map Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				3C0660531E5F9A7F0082AC98 /* driverAnnotation.swift */,
+				3C0660571E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift */,
+				3C0660581E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift */,
+			);
+			name = "Map Annotations";
+			sourceTree = "<group>";
+		};
+		3C0660751E5FA2950082AC98 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3C0660511E5F9A7F0082AC98 /* Constants.h */,
+				3C0660521E5F9A7F0082AC98 /* Constants.m */,
+				3C0660591E5F9A880082AC98 /* Reachability.h */,
+				3C06605A1E5F9A880082AC98 /* Reachability.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		606FB9B22C29657C8BD3CD22 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E7D7623DB922E6D1CA3960A /* Pods_rideSharing.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +166,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C06604A1E5F99A90082AC98 /* Build configuration list for PBXNativeTarget "rideSharing" */;
 			buildPhases = (
+				FA2CDCA892E5734DDCEC3F11 /* [CP] Check Pods Manifest.lock */,
 				3C0660341E5F99A90082AC98 /* Sources */,
 				3C0660351E5F99A90082AC98 /* Frameworks */,
 				3C0660361E5F99A90082AC98 /* Resources */,
+				1CB945023994A04D49225920 /* [CP] Embed Pods Frameworks */,
+				31901EE7DFCAB1BCBEE568AB /* [CP] Copy Pods Resources */,
+				3C06606F1E5F9B5C0082AC98 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -97,6 +196,7 @@
 					3C0660371E5F99A90082AC98 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 79DFX3SWE8;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -124,41 +224,103 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C0660461E5F99A90082AC98 /* LaunchScreen.storyboard in Resources */,
-				3C0660431E5F99A90082AC98 /* Assets.xcassets in Resources */,
-				3C0660411E5F99A90082AC98 /* Main.storyboard in Resources */,
+				3C06604F1E5F9A5B0082AC98 /* Assets.xcassets in Resources */,
+				3C06606C1E5F9ABC0082AC98 /* Main.storyboard in Resources */,
+				3C0660711E5F9C120082AC98 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1CB945023994A04D49225920 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rideSharing/Pods-rideSharing-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31901EE7DFCAB1BCBEE568AB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rideSharing/Pods-rideSharing-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C06606F1E5F9B5C0082AC98 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Auto Increment Version Script\nbuildPlist=${INFOPLIST_FILE}\nCFBuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBuildNumber\" $buildPlist)\nCFBuildNumber=$(($CFBuildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBuildNumber $CFBuildNumber\" $buildPlist\nCFBuildDate=$(date)\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $CFBuildDate\" $buildPlist";
+		};
+		FA2CDCA892E5734DDCEC3F11 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3C0660341E5F99A90082AC98 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C06603E1E5F99A90082AC98 /* ViewController.swift in Sources */,
+				3C0660551E5F9A7F0082AC98 /* driverAnnotation.swift in Sources */,
+				3C0660631E5F9A880082AC98 /* passangerDestinationLocationAnnotation.swift in Sources */,
+				3C0660661E5F9A880082AC98 /* settingsViewController.swift in Sources */,
+				3C0660671E5F9A880082AC98 /* SystemStatusViewController.m in Sources */,
+				3C0660681E5F9A880082AC98 /* TutPageContentViewController.m in Sources */,
+				3C0660651E5F9A880082AC98 /* Reachability.m in Sources */,
+				3C0660691E5F9A880082AC98 /* TutViewController.m in Sources */,
 				3C06603C1E5F99A90082AC98 /* AppDelegate.swift in Sources */,
+				3C0660641E5F9A880082AC98 /* passangerPickupLocationAnnotation.swift in Sources */,
+				3C0660621E5F9A880082AC98 /* MapViewController.swift in Sources */,
+				3C0660541E5F9A7F0082AC98 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3C06603F1E5F99A90082AC98 /* Main.storyboard */ = {
+		3C06606A1E5F9ABC0082AC98 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3C0660401E5F99A90082AC98 /* Base */,
+				3C06606B1E5F9ABC0082AC98 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3C0660441E5F99A90082AC98 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3C0660451E5F99A90082AC98 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -259,26 +421,33 @@
 		};
 		3C06604B1E5F99A90082AC98 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FF7BB8C652B5BD207730981 /* Pods-rideSharing.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 79DFX3SWE8;
 				INFOPLIST_FILE = rideSharing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kkitcreations.rideSharing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "rideSharing/rideSharing-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		3C06604C1E5F99A90082AC98 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B45E3C12AF9D775985776192 /* Pods-rideSharing.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 79DFX3SWE8;
 				INFOPLIST_FILE = rideSharing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kkitcreations.rideSharing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "rideSharing/rideSharing-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +471,7 @@
 				3C06604C1E5F99A90082AC98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
