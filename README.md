@@ -20,9 +20,10 @@ My simple backend is akin to a messaging board, it is the way for the drivers an
 <img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23324456/bddce4e6-faa2-11e6-8b13-50cdb8b7ea48.jpeg">
 
 In a typical ride sharing app, when a passenger requests a pickup, that request goes to the server and that server is tasked with finding nearby drivers and pinging each one in turn to see if they accept the pickup request. In my app, the App itself:
-1. Looks for nearby drivers by consulting a simple list of available drivers.
-2. Finds the nearest driver.
-3. Posts a pickup request in that driver’s directory.
+
+1.  Looks for nearby drivers by consulting a simple list of available drivers.
+2.  Finds the nearest driver.
+3.  Posts a pickup request in that driver’s directory.
 
 The driver’s app is monitoring that request directory and gives the driver several seconds to respond to that pickup request. If that driver does not respond in time, or decides to “pass” on the pickup, the passenger app then finds the next nearest driver and posts the same request in that driver’s request directory. That process continues until a driver is found or all nearby drivers “pass”. See *figure 3* for a detailed diagram of this interaction. 
 
