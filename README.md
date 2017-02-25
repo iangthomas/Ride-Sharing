@@ -87,3 +87,7 @@ Lyft is a trademark of Lyft Inc.
 This code is not a product, service or business offering of any sort.
 
 Thanks to the ubiquitousness of their service, I simply use the terms “Uber” and “Lyft” to help describe some of what my code does. I am in no way affiliated with Uber Technologies or Lyft Inc. I claim no ownership of their trademarked, patented, proprietary or trade secret technologies. They have not endorsed my usage of their trademarks to help describe what my code does. Like Xerox, Google and Kleenex, these companies have created such great products that they have entered the average lexicon. If there are any problems with my usage, I’m more than happy to alter it. Thank you for your understanding.
+
+# Thanks
+One extension contained in this app was created by AJ Miller on 4/18/16 and is Copyright © 2016 KnockMedia. <a href="https://github.com/firebase/geofire-objc/issues/27"> Link.</a>
+
