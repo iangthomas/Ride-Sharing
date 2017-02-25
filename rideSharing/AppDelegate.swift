@@ -28,10 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userProfileReady() == false {
             createInitialUserProfile()
         }
-        
         return true
     }
-    
     
     func userProfileReady() -> Bool {
         if let _ = UserDefaults.standard.string(forKey: kAppUserID) as String? {
@@ -40,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
-
     
     func createInitialUserProfile () {
         
@@ -87,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    
     func applicationWillResignActive(_ application: UIApplication) {
         
         NotificationCenter.default.post(name: NSNotification.Name("closingApp"), object: nil)
@@ -112,7 +108,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
 

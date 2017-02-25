@@ -225,7 +225,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             if onATrip() == false {
                 
-                stopLookingForDrivers () // in the old region
+                stopLookingForDrivers (keepDriverAnnotations: true) // in the old region
                 startLookingForDrivers() // in the new region
             }
         }
@@ -303,7 +303,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         // self.mapView.setVisibleMapRect(routeRect, UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0), true)
                         //  self.mapView.setVisibleMapRect(routeRect, animated: true)
                         
-                        //todo refactor the 1 and 0 to kConstants
                         if self.userStatusMode == Int(KmodeDriver) { // is driver
                             self.updateDriverEnrouteInfo(route)
                         }
@@ -408,9 +407,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } else {
                 
                 // if in driver mode, update the database with that person's location
-                /// todo mode is now unnecessary, remove it
                 // driver only sub-section
-                if let mode = userStatusMode, mode == 1 {
+                if userStatusMode == Int(KmodeDriver) {
                     
                     if onATrip() {
                         
@@ -432,8 +430,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     // Driver and Passenger Method
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        cancelRide()
+        displayCancelConfirmationAlertController()
     }
+    
+    func displayCancelConfirmationAlertController () {
+        
+        let cancelAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to cancel?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            self.cancelRide()
+        })
+        
+        let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        
+        cancelAlertController.addAction(yesAction)
+        cancelAlertController.addAction(noAction)
+        
+        self.present(cancelAlertController, animated: true, completion: nil)
+    }
+    
    
     // Driver and Passenger Method
     func cancelRide() {
@@ -502,7 +517,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if let driverLocation = location as CLLocation!, let theKey = key as String! {
                     
                     self.moveDriverAnnotation(theKey, driverLocation.coordinate)
-                    print("Total Annotation \(self.mapView.annotations.count)")
+                    // print("Total Annotations \(self.mapView.annotations.count)")
                 }
             })
             
@@ -513,12 +528,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 for annot in self.mapView.annotations {
                     
-                    if annot.isMember(of: driverAnnotation.self) {
-                        // todo clean this up
-                        if annot is driverAnnotation {
-                            
-                            self.mapView.removeAnnotation(annot)
-                        }
+                    if annot is driverAnnotation {
+                        self.mapView.removeAnnotation(annot)
                     }
                 }
             })
@@ -555,13 +566,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     // Passenger Method
-    func stopLookingForDrivers () {
+    func stopLookingForDrivers (keepDriverAnnotations keep: Bool) {
         
         // stop any active geofire queries looking for drivers
         if lookingForDriversInRegionQuery != nil {
             lookingForDriversInRegionQuery.removeAllObservers()
         }
-        removeAllDriverAnnotations()
+        if keep == false {
+            removeAllDriverAnnotations()
+        }
     }
     
    
@@ -751,8 +764,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             let tripKey: String =  tripSnapshot.value as! String
             
-            // todo it is so silly because it calls this for each trip, even the old ones... lets move trips into an "old trips" dir in the user dir
-            
             self.ref.child("trips").child(tripKey).observe(.value, with: { (fullTripDataSnapshot) in
                 
                 if let tripDictionary = fullTripDataSnapshot.value as? NSDictionary {
@@ -781,7 +792,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                  
                                  self.present(newTripAlert, animated: true, completion: nil)
                                  */
-                                self.stopLookingForDrivers()
+                                self.stopLookingForDrivers(keepDriverAnnotations: false)
                                 
                                 self.showDriverOnMapEnrouteToPassenger(driverID, tripDictionary.object(forKey:"userStartingLocation") as! NSDictionary)
                                 self.startListeningToUpdatesFromDriver(tripKey)
@@ -836,8 +847,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 // set passenger UI for the trip
                                 self.addressLabel.text = "Enroute To Your Destination"
                                 
-                                
-                                // todo move requests to "old request" dir
                                 self.activeRequestPath = nil
                                 
                                 self.view.bringSubview(toFront: self.blankButton)
@@ -853,7 +862,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 
                                 self.ref.child("trips").child(tripKey).updateChildValues(["passengerDeviceHasBeenDroppedOff" : true])
                                 
-                                
                                 // get them ready to take another trip
                                 
                                 self.startLookingForDrivers()
@@ -868,7 +876,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 self.removeRouteGUI()
                                 
                                 // todo prompt the passenger to rate the driver
-                                
                             }
                         }
                     }
@@ -1212,7 +1219,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         updateDriverDrivingPassenger()
     }
     
-    // todo have the app, after being close be able to resume status. eg  the drier is still enroute, or on a trip... this allows app switching
     // Driver Method
     // called when a driver is enroute to a passenger
     func moveToEnrouteDriver ()  {
@@ -1226,11 +1232,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         geoFire.setLocation(currentLocation, forKey: appUserID)
     }
     
-    // todo not currently called, yet
     // Driver Method
-    // called when the driver is driving the passanger to their destination
     func moveFromDrivingDriver()  {
-        
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("drivingDrivers"))
         let appUserID: String = UserDefaults.standard.object(forKey: kAppUserID) as! String
         geoFire.removeKey(appUserID)
@@ -1387,6 +1390,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let alert = UIAlertController(title: "Another Drive?", message: "Start looking for another pickup?", preferredStyle: .alert)
         
         let moreDriving = UIAlertAction(title: "Another Pickup", style: .default, handler: { _ in
+            self.moveFromDrivingDriver()
             self.startLookingForPassengers()
             self.updateDriverLocationInDatabase() // move driver back onto active list
         })
@@ -1400,7 +1404,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         self.present(alert, animated: true)
         
-        // todo prompt driver to rate passenger
     }
     
     // Driver Method
@@ -1427,7 +1430,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return universalInternetDateFormatter().string(from: theDate)
     }
     
-    // todo reintroduce this thought the code for a cleaner experience, do this for similar types of frequently user references
     // Driver and Passenger Method
     func refThisUsersDirectory () -> FIRDatabaseReference {
         return ref.child("users").child(thisAppUserID)
@@ -1447,8 +1449,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
      }
      */
     
+    // todo it is rather silly because it calls several methods multiple times for pas trips and requests. Lets move trips into an "old trips" dir in the user dir
     
-    //todo add alert view asking if the user or driver really wants to cancel the ride
+    // todo have the app, after being close be able to resume status. eg  the drier is still enroute, or on a trip... this allows app switching
     
     // bug if you make a request, it is accepted, you cancel it and then request a new one, it says no drivers available, because the database requires the map to move to reference it... perhaps just clear the driversThatPassed dictionary once you are on a trip, (nope that already resets, when you press request button...)
 }
