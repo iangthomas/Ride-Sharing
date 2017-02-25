@@ -11,6 +11,7 @@ import MapKit
 import Firebase
 import CoreLocation
 import GeoFire
+import HCSStarRatingView
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -22,6 +23,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var requestButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var blankButton: UIButton!
+    // Rating View
+    @IBOutlet weak var ratingView: UIView!
+    @IBOutlet weak var ratingTitleLabel: UILabel!
+    @IBOutlet weak var ratingSendButton: UIButton!
+    @IBOutlet weak var starsTouch: HCSStarRatingView!
+    @IBOutlet weak var ratingsActivityIndicator: UIActivityIndicatorView!
     
     // Passenger IBOutlets
     @IBOutlet weak var centerButton: UIButton!
@@ -36,6 +43,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var onTripButton: UIButton!
     @IBOutlet weak var completeTripButton: UIButton!
     @IBOutlet weak var countdownLabel: UILabel!
+    
     
     // Driver and Passenger Variables
     var thisAppUserID: String!
@@ -52,6 +60,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var activeDriverUserRequestPath: FIRDatabaseReference!
     var watchingThisUsersDirectoryForPickupRequests: FIRDatabaseHandle!
     var watchingMainRequestDirectoryForPickupRequests: FIRDatabaseHandle!
+    
+    var tripInformaitonForRating: NSDictionary!
     
     // Driver variables
     var isEnroute: Bool!
@@ -204,6 +214,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.view.sendSubview(toBack: pickupRequestView)
         self.view.sendSubview(toBack: completeTripButton)
         self.view.sendSubview(toBack: blankButton)
+        self.view.sendSubview(toBack: ratingView)
     }
     
     // Driver and Passenger Method
@@ -778,7 +789,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 
                             } else {
                                 
-                                self.noResponseTimer.invalidate()
+                                if self.noResponseTimer != nil {
+                                    self.noResponseTimer.invalidate()
+                                }
                                 
                                 self.ref.child("trips").child(tripKey).updateChildValues(["alertedPassengerDriverEnroute" : true])
                                 
@@ -875,7 +888,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 
                                 self.removeRouteGUI()
                                 
-                                // todo prompt the passenger to rate the driver
+                                self.rateTheDriver(withTripDirectory: tripDictionary)
                             }
                         }
                     }
@@ -884,6 +897,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
     }
 
+    // Passenger Method
+    func rateTheDriver(withTripDirectory tripDictionary: NSDictionary) {
+        ratingTitleLabel.text = "Please rate your driver."
+        tripInformaitonForRating = tripDictionary
+        ratingSendButton.isHidden = false
+        self.view.bringSubview(toFront: ratingView)
+    }
+    
     // Passenger Method
     func showNoNearbyDriversGUIUpdate () {
         
@@ -1433,6 +1454,60 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     // Driver and Passenger Method
     func refThisUsersDirectory () -> FIRDatabaseReference {
         return ref.child("users").child(thisAppUserID)
+    }
+    
+    // Driver and Passenger Method
+    @IBAction func ratingSendButtonPressed(_ sender: Any) {
+        
+        ratingSendButton.isHidden = true
+        
+        if userStatusMode == Int(KmodePassenger) {
+        
+            // add this new rating to the driver
+            // users/driverId/ratings
+            let driverId = tripInformaitonForRating.object(forKey: "driverId") as! String
+            
+            // add this new rating to the database
+            let newRating = [
+            getCurrentTime() : starsTouch.value
+            ]
+            
+            self.ratingsActivityIndicator.startAnimating()
+
+            self.ref.child("users").child(driverId).child("ratings").updateChildValues(newRating, withCompletionBlock: { (error, ref) in
+                
+                if error == nil {
+                
+                // update the user's overall rating by taking the average of all previous ratings
+                self.ref.child("users").child(driverId).child("ratings").observeSingleEvent(of: .value, with: { (ratingsSnapshot) in
+                    let ratingsDictionary = ratingsSnapshot.value as! NSDictionary
+
+                    var ratingsSum = 0.0
+                    for rating in ratingsDictionary {
+                        let value = rating.value as! Double
+                        ratingsSum += value
+                    }
+                    let totalRatings = Double(ratingsDictionary.count)
+                    
+                    let newAvergae = ratingsSum / totalRatings
+                    let newAverageTruncated = String(format: "%.2f", newAvergae)
+                    
+                    self.ref.child("users").child(driverId).child("stars").setValue(newAverageTruncated, withCompletionBlock: { (error, ref) in
+                       
+                        self.ratingsActivityIndicator.stopAnimating()
+                        self.view.sendSubview(toBack: self.ratingView)
+                        
+                    })
+                })
+                }
+            })
+        
+        } else { // is KmodePassenger
+        
+        }
+        // reset this
+        tripInformaitonForRating = nil
+
     }
     
     /*

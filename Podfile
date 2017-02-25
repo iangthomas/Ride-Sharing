@@ -8,6 +8,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+pod 'HCSStarRatingView', '~> 1.4.5'
 
   # Pods for rideSharing
 

@@ -99,9 +99,9 @@
 				3C0660741E5FA27F0082AC98 /* Map Annotations */,
 				3C0660721E5FA2650082AC98 /* Tutorial and Login */,
 				3C0660751E5FA2950082AC98 /* Utilities */,
-				3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */,
 				3C06606A1E5F9ABC0082AC98 /* Main.storyboard */,
 				3C06604E1E5F9A5B0082AC98 /* Assets.xcassets */,
+				3C0660701E5F9C120082AC98 /* GoogleService-Info.plist */,
 				3C0660471E5F99A90082AC98 /* Info.plist */,
 				3C0660501E5F9A7F0082AC98 /* rideSharing-Bridging-Header.h */,
 			);
