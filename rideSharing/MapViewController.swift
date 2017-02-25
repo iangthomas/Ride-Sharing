@@ -12,17 +12,20 @@ import Firebase
 import CoreLocation
 import GeoFire
 
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    // Driver and Passenger IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var requestButton: UIButton!
-    @IBOutlet weak var centerButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var blankButton: UIButton!
     
+    // Passenger IBOutlets
+    @IBOutlet weak var centerButton: UIButton!
     
-    // UI in the pickup request screen
+    // Driver IBOutlets
+    // (UI in the pickup request screen)
     @IBOutlet weak var pickupRequestView: UIView!
     @IBOutlet weak var acceptPassenger: UIButton!
     @IBOutlet weak var passPassenger: UIButton!
@@ -32,43 +35,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var completeTripButton: UIButton!
     @IBOutlet weak var countdownLabel: UILabel!
     
-    @IBOutlet weak var blankButton: UIButton!
+
+    // Driver and Passenger Variables
+    var thisAppUserID: String!
+    var userStatusMode: Int!
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation!
-    
     var zoomedToInitialLocation = false
     
     var ref: FIRDatabaseReference!
-    
     var geoCoder: CLGeocoder!
     
     var activeRequestPath: FIRDatabaseReference!
     var activeDriverUserRequestPath: FIRDatabaseReference!
-    
-    var nearbyDrivers: [String: Any] = [:]
-    var userStatusMode: Int!
-    
-    var pickupRequestUserUniqueID: String!
-    var requestDirectoryRequestID: String!
-    var theTripDirectory: String!
-    
-    var lookingForDriversInRegionQuery: GFRegionQuery!
-    var watchDriverForPickup: FIRDatabaseHandle!
-    
-    var isEnroute: Bool!
     var watchingThisUsersDirectoryForPickupRequests: FIRDatabaseHandle!
     var watchingMainRequestDirectoryForPickupRequests: FIRDatabaseHandle!
     
-    var driversThatPassed: [String: String] =  [:]
+    // Driver variables
+    var isEnroute: Bool!
+    var requestDirectoryRequestID: String!
+    var pickupRequestUserUniqueID: String!
+    var theTripDirectory: String!
     
+    // Passenger variables
+    var nearbyDrivers: [String: Any] = [:]
+    var driversThatPassed: [String: String] =  [:]
     var noResponseTimer: Timer!
+    var watchDriverForPickup: FIRDatabaseHandle!
+    var lookingForDriversInRegionQuery: GFRegionQuery!
     var pickupLocation: [String: CLLocationDegrees] = [:]
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: Setup and UI
+    // driver and passenger method
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,11 +86,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         } else {
             NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.userProfileCreated), name: NSNotification.Name("userProfileCreated"), object: nil)
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.ifLookingForPassengerThenStop), name: NSNotification.Name("closingApp"), object: nil)
     }
     
-    
+    // driver and passenger method
     func isUserProfileReady() -> Bool {
         if let _ = UserDefaults.standard.string(forKey: kAppUserID) as String? {
             return true
@@ -95,30 +97,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    // driver and passenger method
     func setupMapViewController () {
+        NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.ifLookingForPassengerThenStop), name: NSNotification.Name("closingApp"), object: nil)
         setupUserTypeSwitching()
         setupLocationManager()
     }
     
-    
+    // driver and passenger method
     func userProfileCreated () {
         setupMapViewController()
     }
     
+    // driver and passenger method
     @IBAction func settingsButtonTapped (_ sender: Any) {
-        
         self.performSegue(withIdentifier: "settings", sender: nil)
     }
     
+    // driver and passenger method
     func setupUserTypeSwitching () {
         
         NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.updateStatus), name: NSNotification.Name("changedUserStatus"), object: nil)
         
         userStatusMode = UserDefaults.standard.integer(forKey: kUserStatusMode)
+        thisAppUserID = UserDefaults.standard.string(forKey: kAppUserID)
+        
         
         NotificationCenter.default.post(name: NSNotification.Name("changedUserStatus"), object: userStatusMode)
     }
     
+    // driver and passenger method
     func updateStatus (_ theNotification: NSNotification) {
         
         let userStatus = theNotification.object as! Int
@@ -129,7 +137,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         defaults.synchronize()
         
         
-        if userStatus == 0 {
+        if userStatus == Int(KmodePassanger) {
             // passenger
             requestButton.isEnabled = true
             requestButton.setTitle("Request Pickup", for: .normal)
@@ -145,7 +153,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             requestButton.isEnabled = false
             addressLabel.text = ""
             
-            // did the user request a ride before switching?
+            // did the user request a ride before switching? If so cancel the ride.
             if activeRequestPath != nil {
                 cancelRide()
             }
@@ -155,7 +163,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // driver and passenger method
     func setupLocationManager () {
         
         if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.authorizedWhenInUse {
@@ -167,7 +175,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.startUpdatingLocation()
     }
     
-    
+    // driver and passenger method
     func setupGUI () {
         self.view.sendSubview(toBack: onTripButton)
         self.view.sendSubview(toBack: cancelButton)
@@ -176,19 +184,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.view.sendSubview(toBack: blankButton)
     }
     
-    
+    // driver and passenger method
     func removeAllDriverAnnotations () {
-        
         for annotation in mapView.annotations {
             if annotation is driverAnnotation {
                 mapView.removeAnnotation(annotation)
             }
         }
-        
     }
     
+    // passenger method
     func isDriverBeingDisplayed (_ keyString: String) -> Bool {
-        
         for annotation in mapView.annotations {
             
             if let aDriver = annotation as? driverAnnotation {
@@ -200,7 +206,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return false
     }
     
-    
+    // passenger method
     func moveDriverAnnotation(_ theKey: String, _ newLocation: CLLocationCoordinate2D) {
         
         for annot in self.mapView.annotations {
@@ -214,18 +220,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // passenger method
     func stopLookingForDrivers () {
         
-        // stop the geofire queries looking for drivers
+        // stop any active geofire queries looking for drivers
         if lookingForDriversInRegionQuery != nil {
             lookingForDriversInRegionQuery.removeAllObservers()
         }
-        // remove all driver pins
         removeAllDriverAnnotations()
     }
     
-    
+    // passenger method
     func showDriverOnMapEnrouteToPassenger (_ driverID: String, _ passengerPickupLocationDictionary: NSDictionary) {
         
         let passengerPickupLocationCoor = CLLocationCoordinate2D(latitude: passengerPickupLocationDictionary.object(forKey: kLatitude) as! CLLocationDegrees, longitude: passengerPickupLocationDictionary.object(forKey: kLongitude) as! CLLocationDegrees)
@@ -250,23 +255,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         
                         self.mapView.addAnnotation(newDriverAnnotation)
                         self.displayDriverDrivingDirections(from: driverLocation, to: passengerPickupLocationCoor)
-                        
-                        
                     }
                 }
             }
         })
     }
     
-    
-    // did region change, then update these stuff
+    // passanger method
+    //
+    // did region change, if so, then update the search criteria
     func startLookingForDrivers () {
         
         let region = MKCoordinateRegion(center: mapView.centerCoordinate, span: mapView.region.span)
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("readyDrivers"))
         lookingForDriversInRegionQuery = geoFire.query(with: region)
         
-        //driver entered region
+        // a driver entered search region
         _ = lookingForDriversInRegionQuery?.observe(.keyEntered, with: { (key, location) in
             
             self.nearbyDrivers[key!] = location
@@ -275,7 +279,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 if self.isDriverBeingDisplayed(theKey) {
                     
-                    // move it instead
+                    // move the annotaiton instead
                     self.moveDriverAnnotation(theKey, driverLocation.coordinate)
                     
                 } else {
@@ -286,7 +290,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
         })
         
-        // driver moved in region
+        // a driver moved in region
         _ = lookingForDriversInRegionQuery?.observe(.keyMoved, with: { (key, location) in
             
             if let driverLocation = location as CLLocation!, let theKey = key as String! {
@@ -296,7 +300,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
         })
         
-        // driver exited in region
+        // a driver exited in region
         _ = lookingForDriversInRegionQuery?.observe(.keyExited, with: { (key, location) in
             
             self.nearbyDrivers.removeValue(forKey: key!)
@@ -314,51 +318,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
     }
     
-    
-    // driver- method
+    // driver method
     func startLookingForPassengers () {
         
-        if currentLocation == nil { // this method is called very early on, and the device might not have a user location yet
+        if currentLocation == nil { // this method is called very early on, and the device might not have a user location yet, call it again until we have the location
             
             Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MapViewController.startLookingForPassengers), userInfo: nil, repeats: false)
             
         } else {
             
-            let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
-            
             // start watching this user's request directory
             
-            watchingThisUsersDirectoryForPickupRequests = ref.child("users").child(thisAppUserID).child("requests").observe(.childAdded, with: { (requestInUserDirectorySnapshot) -> Void in
+            watchingThisUsersDirectoryForPickupRequests = refThisUsersDirectory().child("requests").observe(.childAdded, with: { (requestInUserDirectorySnapshot) -> Void in
                 
                 if let limitedRequestInfo: NSDictionary = requestInUserDirectorySnapshot.value as? NSDictionary {
                     
-                    // watch for change of status in the limited directory
-                    
+                    // watch for change of status in the "limited" driver's directory
                     // todo add a check here to see if this is a new request, look at the status label to see
                     
                     let limitedStatus = limitedRequestInfo.object(forKey: "status") as! String
                     
-                    
-                    // this means it is a new pickup request!
-                    
-                    if limitedStatus == "yours" {
+                    if limitedStatus == "yours" { // this means it is a new pickup request!
                         
                         
                         // load info about the person and where they are going
                         let requestersUserID = limitedRequestInfo.object(forKey: "requestingUsersID") as! String
                         
-                        // let requestExpirationTimeString = limitedRequestInfo.object(forKey: "requestExpiration") as! String
-                        
-                        
-                        // let theDate = Date()
-                        let formatter = DateFormatter()
-                        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
-                        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-                        
-                        let requestExpirationTime: Date = formatter.date(from: limitedRequestInfo.object(forKey: "requestExpiration") as! String)!
-                        
-                        //   return formatter.string(from: theDate)
-                        
+                        let requestExpirationTime: Date = self.universalInternetDateFormatter().date(from: limitedRequestInfo.object(forKey: "requestExpiration") as! String)!
+                    
                         
                         self.ref.child("users").child(requestersUserID).observeSingleEvent(of: .value, with: { (userSnapshot) in
                             
@@ -372,7 +359,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                                 
                                 let locationDictionary = locationSnapshot.value as! NSDictionary
                                 
-                                let statusDirectory = self.ref.child("users").child(thisAppUserID).child("requests").child(requestInUserDirectorySnapshot.key).child(kStatus)
+                                let statusDirectory = self.ref.child("users").child(self.thisAppUserID).child("requests").child(requestInUserDirectorySnapshot.key).child(kStatus)
                                 
                                 self.pickupRequestUserUniqueID = requestInUserDirectorySnapshot.key
                                 self.requestDirectoryRequestID = limitedRequestInfo.object(forKey: "theRequestID") as! String
@@ -431,7 +418,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
     }
     
-    
+    // driver method
     func showPickupRequestView (_ personName: String, _ distanceToPassenger: Double, _ requestExpirationTime: Date) {
         self.closeButton.isHidden = true
         self.passPassenger.isHidden = false
@@ -445,7 +432,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.view.bringSubview(toFront: self.pickupRequestView)
     }
     
-    
+    // driver method
     func updateCountdown (_ timer: Timer) {
         
         let requestExpirationTime = timer.userInfo as! Date
@@ -463,7 +450,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // driver method
     func changePickupRequestViewToNoResponse () {
         self.closeButton.isHidden = false
         self.passPassenger.isHidden = true
@@ -471,14 +458,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.passengerName.text = "Too Much Time Passed"
     }
     
-    
-    //driver and passenger method -method
+    //driver and passenger method
     func displayDriverDrivingDirections (from fromLocation: CLLocationCoordinate2D, to toLocation: CLLocationCoordinate2D) {
-        
         
         // remove the old route polygon
         removeRouteOverlays()
-        
         
         // get directions to that person
         let drivingDirectionsRequest = MKDirectionsRequest()
@@ -496,7 +480,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     for route in unwrappedResponse.routes {
                         
                         self.mapView.add(route.polyline)
-                        // todo this is zooming in too much
+                        // todo the current method zooms to the path to closely.
                         /*
                          var routeRect = route.polyline.boundingMapRect
                          
@@ -509,11 +493,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         
                         
                         // self.mapView.setVisibleMapRect(routeRect, UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0), true)
-                        
                         //  self.mapView.setVisibleMapRect(routeRect, animated: true)
                         
                         //todo refactor the 1 and 0 to kConstants
-                        if self.userStatusMode == 1 { // is driver
+                        if self.userStatusMode == Int(KmodeDriver) { // is driver
                             self.updateDriverEnrouteInfo(route)
                         }
                     }
@@ -526,16 +509,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    // driver - method
+    // driver method
     func addPassengerPickupPin (_ passengerLocationForMap: CLLocationCoordinate2D) {
         
         let userLocation: passengerPickupLocationAnnotation = passengerPickupLocationAnnotation.init(passengerLocationForMap, "Pickup Location")
         mapView.addAnnotation(userLocation)
     }
     
-    
-    // driver - method
-    
+    // driver method
     func updateDriverEnrouteInfo (_ route: MKRoute) {
         let updatedTravelInfo = [
             "eta" : route.expectedTravelTime,
@@ -544,12 +525,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.ref.child("trips").child(self.theTripDirectory).child("travelInfo").updateChildValues(updatedTravelInfo)
     }
     
-    
-    // driver -method
+    // driver method
     func makeATrip (_ passengerRequestedLocation: NSDictionary, _ thePassengerID: String) {
         
         // make a new post in trip directory
-        let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
         
         let post = [
             "driverId" : thisAppUserID,
@@ -566,21 +545,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             self.theTripDirectory = reference.key
             
-            self.ref.child("users").child(thisAppUserID).child("trips").updateChildValues([reference.key : reference.key])
+            self.ref.child("users").child(self.thisAppUserID).child("trips").updateChildValues([reference.key : reference.key])
             self.ref.child("users").child(thePassengerID).child("trips").updateChildValues([reference.key : reference.key])
             
-            
             let passengerLocationForMap: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: passengerRequestedLocation.object(forKey: kLatitude) as! CLLocationDegrees, longitude: passengerRequestedLocation.object(forKey: kLongitude) as! CLLocationDegrees)
-            
             
             self.displayDriverDrivingDirections(from: self.currentLocation.coordinate, to: passengerLocationForMap)
             self.addPassengerPickupPin(passengerLocationForMap)
             self.updateDriverUIForEnroute()
-            
         })
     }
     
-    
+    // driver method
     func updateDriverUIForEnroute () {
         
         self.addressLabel.text = "Follow the route to the Passenger."
@@ -592,8 +568,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         onTripButton.setTitle("Pickup Passenger", for: .normal)
     }
     
-    
-    
+    // driver and passenger method
     // displays driving directions for driver
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
@@ -602,13 +577,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return renderer
     }
     
-    
     // driver method
     @IBAction func passUserRequestToAnotherDriver (_ sender: Any) {
-        
-        let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
-        ref.child("users").child(thisAppUserID).child("requests").child(pickupRequestUserUniqueID).updateChildValues([kStatus: kPassed])
-        
+        refThisUsersDirectory().child("requests").child(pickupRequestUserUniqueID).updateChildValues([kStatus: kPassed])
         closeRequestView()
     }
     
@@ -617,8 +588,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         moveToEnrouteDriver()
         
-        let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
-        ref.child("users").child(thisAppUserID).child("requests").child(pickupRequestUserUniqueID).updateChildValues([kStatus: kAccepted])
+        refThisUsersDirectory().child("requests").child(pickupRequestUserUniqueID).updateChildValues([kStatus: kAccepted])
         
         // update the request in the main request directory
         ref.child("requests").child(requestDirectoryRequestID).updateChildValues([kStatus: kAccepted])
@@ -626,25 +596,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         closeRequestView()
     }
     
-    
+    // driver method
     @IBAction func closePassengerRequestView (_ sender: Any) {
         closeRequestView()
     }
-    
+    // driver method
     func closeRequestView () {
         self.view.sendSubview(toBack: self.pickupRequestView)
     }
     
+    // driver and passenger method
     func ifLookingForPassengerThenStop () {
         
-        // if user is in "driver" mode
-        if userStatusMode == 1 {
+        if userStatusMode == Int(KmodeDriver) {
             stopLookingForPassengers()
         }
     }
     
     // todo have the app, after being close be able to resume status. eg  the drier is still enroute, or on a trip... this allows app switching
-    
+    // driver method
     func moveToEnrouteDriver ()  {
         
         stopLookingForPassengers()
@@ -656,7 +626,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         geoFire.setLocation(currentLocation, forKey: appUserID)
     }
     
-    
+    // driver method
     func moveFromEnrouteDriverToActiveDriver () {
         
         isEnroute = false
@@ -669,7 +639,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         updateDriverLocationInDatabase ()
     }
     
-    
+    // driver method
     func moveFromEnrouteDriverToDriverDriver () {
         isEnroute = false
         
@@ -680,7 +650,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         updateDriverDrivingPassenger()
     }
     
-    
+    // todo not currently called, yet
+    // driver method
     func moveFromDrivingDriver()  {
         
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("drivingDrivers"))
@@ -688,7 +659,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         geoFire.removeKey(appUserID)
     }
     
-    
+    // driver and passenger method (called when switching between user modes)
     func stopLookingForPassengers() {
         
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("readyDrivers"))
@@ -709,7 +680,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     // mapview delegates
-    
+    // passenger and driver method
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
         if zoomedToInitialLocation {
@@ -726,7 +697,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // passenger and driver method
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation is driverAnnotation {
@@ -740,7 +711,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // driver method
     func onATrip () -> Bool {
         
         if theTripDirectory == nil {
@@ -750,18 +721,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    // driver method
     func endATrip() {
         theTripDirectory = nil
     }
     
-    
+    // driver method
     func driverIsEnroute() -> Bool {
         return isEnroute
     }
     
+    // driver and passenger method
     func updateAddressLabel(_ location: CLLocation) {
         
-        if userStatusMode == 0 && activeRequestPath == nil {
+        if userStatusMode == Int(KmodePassanger) && activeRequestPath == nil {
             
             CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
                 
@@ -793,7 +766,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
+    // driver and passenger method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let theLocation = locations.last!
@@ -817,7 +790,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } else {
                 
                 // if in driver mode, update the database with that person's location
-                
+                /// todo mode is now unncessary, remove it
+                // driver only sub-section
                 if let mode = userStatusMode, mode == 1 {
                     
                     if onATrip() {
@@ -827,58 +801,49 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         } else {
                             updateDriverDrivingPassenger()
                         }
-                        
                     } else {
-                        
                         updateDriverLocationInDatabase()
                     }
-                    
                 }
             }
         }
     }
     
-    func updateDriverLocationInDatabase () {
+    // driver method
+    func updateDriverLocationInDatabase() {
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("readyDrivers"))
         let appUserID: String = UserDefaults.standard.object(forKey: kAppUserID) as! String
         geoFire.setLocation(currentLocation, forKey: appUserID)
     }
     
+    // driver method
     func updateEnrouteDriverPosition() {
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("enrouteDrivers"))
         let appUserID: String = UserDefaults.standard.object(forKey: kAppUserID) as! String
         geoFire.setLocation(currentLocation, forKey: appUserID)
     }
     
+    // driver method
     func updateDriverDrivingPassenger() {
         let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("drivingDrivers"))
         let appUserID: String = UserDefaults.standard.object(forKey: kAppUserID) as! String
         geoFire.setLocation(currentLocation, forKey: appUserID)
     }
     
-    
-    func getCurrentTime () -> String {
+    // driver and passenger method
+    func getCurrentTime() -> String {
         
         let theDate = Date()
-        let formatter = DateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
-        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        
-        return formatter.string(from: theDate)
+        return universalInternetDateFormatter().string(from: theDate)
     }
     
+    // passenger method
     func getExpirationTime (addTime secondsToAdd: Double) -> String {
         
         var theDate = Date()
-        let formatter = DateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
-        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        
         theDate.addTimeInterval(secondsToAdd)
-        
-        return formatter.string(from: theDate)
+        return universalInternetDateFormatter().string(from: theDate)
     }
-    
     
     // passenger method
     @IBAction func requestButtonPressed(_ sender: Any) {
@@ -923,28 +888,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             self.startListeningForDriversToAcceptPickupRequest()
             
-            
         } else {
             showNoNearbyDriversGUIUpdate()
         }
     }
     
-    /*
-     func allDriversPassed() {
-     
-     activeRequestPath.updateChildValues(["status" : kNoAvailableDrivers], withCompletionBlock: { (error, ref) in
-     
-     if error == nil {
-     self.activeRequestPath = nil
-     self.view.bringSubview(toFront: self.requestButton)
-     self.requestButton.isEnabled = true
-     
-     self.showNoNearbyDriversGUIUpdate()
-     }
-     })
-     }
-     */
-    
+    // passenger method
     func showNoNearbyDriversGUIUpdate () {
         
         self.removePassengerPickupLocationAnnotation()
@@ -956,16 +905,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    // todo reintroduce this thought the code for a cleaner experience
-    
+    // todo reintroduce this thought the code for a cleaner experience, do this for similar types of frequently user references
+    // driver and passenger method
     func refThisUsersDirectory () -> FIRDatabaseReference {
-        
-        let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
         return ref.child("users").child(thisAppUserID)
     }
     
-    
     // passenger method
+    // todo next, refactor this
     func startListeningForDriversToAcceptPickupRequest () {
         
         refThisUsersDirectory().child("trips").observe(.childAdded, with: { (tripSnapshot) in
@@ -1099,7 +1046,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    // passenger -method
+    // passenger method
     func startListeningToUpdatesFromDriver (_ tripKey: String) {
         
         // when on a trip, listen for updates from the driver about when s/he is arriving
@@ -1126,10 +1073,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
     }
     
-    
-    
+    // passenger method
     func driversAreNearBy () -> Bool {
-        
         if nearbyDrivers.count > 0 {
             return true
         } else {
@@ -1137,9 +1082,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    // passenger method
     func sendPickUpRequestToNearbyDrivers () {
-        
-        let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
         
         if activeRequestPath == nil {
             
@@ -1185,21 +1129,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    
     // passenger method
-    
     func startWaitingForDriverTimer(_ nearestDriverID: String, _ requestReference: String) {
         
         noResponseTimer = Timer.scheduledTimer(withTimeInterval: 20.0, repeats: false) { (Timer) in
             
-            // too late to accept
+            // it is now too late to accept the request
             
             if self.activeRequestPath == nil {
                 
             } else {
-                
-                //  self.activeRequestPath.updateChildValues(["status" : kNoResponse], withCompletionBlock: { (error, ref) in
-                
                 self.ref.child("users").child(nearestDriverID).child("requests").child(requestReference).updateChildValues([kStatus: kNoResponse], withCompletionBlock: { (error, ref) in
                     
                     // alert driver it is too late, once successful then update the passenger
@@ -1208,7 +1147,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     self.sendPickUpRequestToNearbyDrivers()
                 }
                 )}
-            // )}
         }
     }
     
@@ -1226,7 +1164,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         })
     }
     
-    
+    // passenger method
     func findNearestAvailableDriver() -> String {
         
         var closestDistance = Double.greatestFiniteMagnitude
@@ -1256,7 +1194,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return closestDriverKey
     }
     
+    // driver and passenger method
+    func removeRouteGUI () {
+        removePassengerPickupLocationAnnotation()
+        removePassengerDestinationLocationAnnotation()
+        removeRouteOverlays()
+    }
     
+    // driver and passenger method
     func removePassengerPickupLocationAnnotation () {
         for annotation in mapView.annotations {
             if annotation is passengerPickupLocationAnnotation {
@@ -1265,6 +1210,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    // driver and passenger method
     func removePassengerDestinationLocationAnnotation () {
         for annotation in mapView.annotations {
             if annotation is passengerDestinationLocationAnnotation {
@@ -1273,17 +1219,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    func removeRouteGUI () {
-        removePassengerPickupLocationAnnotation()
-        removePassengerDestinationLocationAnnotation()
-        removeRouteOverlays()
-    }
-    
+    // driver and passenger method
     func cancelRide() {
         
         removeRouteGUI()
         
-        if userStatusMode == 0 { // is passenger
+        if userStatusMode == Int(KmodePassanger) {
             
             activeRequestPath.updateChildValues(["status" : kPassengerCancelled], withCompletionBlock: { (error, ref) in
                 
@@ -1300,11 +1241,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             })
             
         } else { // is driver
-            
             preformDriverCancellationOperations(whoCancelled: kDriverCancelled)
         }
     }
-    
     
     // driver method
     func preformDriverCancellationOperations (whoCancelled canceller: String) {
@@ -1326,22 +1265,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         if canceller == kDriverCancelled {
             
-            let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
+            // let thisAppUserID = UserDefaults.standard.object(forKey: kAppUserID) as! String
             
             // users/self/requests/pickuprequestuseridstring/status to DriverCanceledEnroute
-            ref.child("users").child(thisAppUserID).child("requests").child(pickupRequestUserUniqueID).updateChildValues(["status" : kDriverCancelled])
+            refThisUsersDirectory().child("requests").child(pickupRequestUserUniqueID).updateChildValues(["status" : kDriverCancelled])
             pickupRequestUserUniqueID = nil
             
         } else if canceller == kPassengerCancelled {
             
             showPassengerCancelledAlert()
-            
         }
         
         
         //// update the UI
         
-        if userStatusMode == 0 { // passenger
+        if userStatusMode == Int(KmodePassanger) { // passenger
             let centerOfMap = CLLocation(latitude: pickupLocation[kLatitude]!, longitude: pickupLocation[kLongitude]!)
             updateAddressLabel(centerOfMap)
             
@@ -1358,17 +1296,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let centerOnUser = MKCoordinateRegion(center: currentLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         mapView.setRegion(centerOnUser, animated: true)
-        
     }
     
-    
+    // driver and passenger method
     func removeRouteOverlays () {
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }
     }
     
-    
+    // driver method
     func showPassengerCancelledAlert () {
         
         let alert = UIAlertController(title: "Passenger Cancelled", message: "Sorry, but the passenger cancelled", preferredStyle: .alert)
@@ -1378,15 +1315,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.present(alert, animated: true, completion: nil)
     }
     
-    
+    // diver and passanger method
     @IBAction func cancelButtonPressed(_ sender: Any) {
         cancelRide()
     }
     
-    
-    
-    
     // todo finish writing me and also call me
+    // todo not called yet
     func pickupPassengerAndStartTheirTrip () {
         isEnroute = false
         
@@ -1394,14 +1329,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     //todo add alert view asking if the user or driver really wants to cancel the ride
     
     
-    
     // driver method
-    
     @IBAction func startDrivingWithPassenger () {
         
         //// update database
-        
-        // update location
+        // update driver location
         moveFromEnrouteDriverToDriverDriver()
         
         ref.child("trips").child(theTripDirectory).updateChildValues([kStatus : kPickedUpPassenger])
@@ -1421,9 +1353,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         // todo navigate driver to user destination
-        
     }
-    
     
     // driver method
     @IBAction func completeTrip () {
@@ -1461,6 +1391,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // todo prompt driver to rate passenger
     }
     
+    
+    // MARK Utility Methods
+    
+    // driver and passenger method
+    func universalInternetDateFormatter () -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
+        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        return formatter
+    }
+
     
     
     /*

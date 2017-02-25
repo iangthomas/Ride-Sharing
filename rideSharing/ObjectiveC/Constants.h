@@ -10,24 +10,22 @@
 #ifndef nimbustest_Constants_h
 #define nimbustest_Constants_h
 
-
+// Device Size Vaiables
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 #define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0f)
 
+
 #define kauto_crash_reporting @"auto_crash_reporting"
 #define kauto_anonymous_stats @"auto_anonymous_stats"
-
-
-
 #define kUserStatusMode @"userStatusMode"
-
 #define kNumLaunchesKey @"numTimesAppLaunched"
 
+// Unique User Variables
 #define kAppUserID @"appUserID"
 
-
+// Standard Server Communication Variables.
 #define kDriverCancelled @"driverCancelled"
 #define kPassengerCancelled @"passengerCancelled"
 #define kPickedUpPassenger @"pickedUpPassenger"
@@ -36,16 +34,15 @@
 #define kPassed @"passed"
 #define kPassengerDroppedOff @"passengerDroppedOff"
 #define kNoAvailableDrivers @"noAvailableDrivers"
-
 #define kEveryonePassed @"everyonePassed"
 #define kNoResponse @"noResponse"
-
-
 #define kLatitude @"latitude"
 #define kLongitude @"longitude"
 
+// On Device Communication Variables.
+#define KmodePassanger 0
+#define KmodeDriver 1
 
-#warning change the following before release
 #define debugLvl 3
 // Level 1 Everything (Verbose)
 // Level 2 Some (Debug)

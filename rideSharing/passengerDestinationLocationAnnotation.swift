@@ -12,7 +12,6 @@ import MapKit
 class passengerDestinationLocationAnnotation: NSObject, MKAnnotation {
 
     dynamic var coordinate: CLLocationCoordinate2D
-   // var title: String?
     
     init(_ coordinate: CLLocationCoordinate2D, _ key: String) {
         self.coordinate = coordinate
