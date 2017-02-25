@@ -60,7 +60,7 @@ How do you still allow non-updated users to participate in the App even if the u
 One possible solution is to create server variables for the aspects of the App most likely to change. For example, drivers are currently  given 10 seconds to decide whether to "accept" the passenger pickup request or “pass”. That 10 seconds can be a variable that lives on the server, and the backend silently notifies client apps when that number is changed, say to 20 seconds.
 
 It would be fascinating to see a pie-graph breakdown of app versions for the major ride sharing companies. What percentage of their user base is on the latest version and what percentage is still using versions from months ago? Those percentages likely vary depending on the platform; given the currently larger OS fragmentation on Android, iOS users are more likely to be more updated. But that may be a moot point: clients of major ride sharing apps may have a higher propensity to “stay current” with app updates compared to other platform users. It is interesting to note that in December 2016, Uber updated their app four times and Lyft updated their app three times. Regardless of the ability to make changes on the backend, it is clearly still necessary to update the client app often.
-<br /><br /><br /><br />
+
 # Image Credits
 
 1.
@@ -78,7 +78,6 @@ Cloud image used with permission under the Creative Commons 3.0 license.
 By Valery from the Noun Project.
 
 
-<br /><br />
 # Notice
 
 Uber is a trademark of Uber Technologies. 
