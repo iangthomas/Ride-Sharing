@@ -40,7 +40,7 @@
 #define kLongitude @"longitude"
 
 // On Device Communication Variables.
-#define KmodePassanger 0
+#define KmodePassenger 0
 #define KmodeDriver 1
 
 #define debugLvl 3

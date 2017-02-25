@@ -62,7 +62,7 @@ static NSString* idInfo;
     return platform;
 }
 
-/*
+
 +(void)makeErrorReportWithDescription:(NSString*) theDescription {
 
     FIRDatabaseReference *errorDir = [[[FIRDatabase database] reference] child:@"errorReports"];
@@ -83,22 +83,11 @@ static NSString* idInfo;
     theError[@"is_DeveloperViaDebug"] = @NO;
 #endif
 
-    theError [@"callsToServer"] = [NSNumber numberWithInt:[self getMethodCallCount]];
     
     theError[@"debugLog"] = theLog;
 
     theError[@"appUserID"] = [[NSUserDefaults standardUserDefaults] objectForKey:kAppUserID];
     
-  //  theError[@"idOfGenfenceDeviceIsIn"] = [[NSUserDefaults standardUserDefaults] objectForKey:kidOfGenfenceDeviceIsIn];
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kOnDuty]) {
-        theError[@"onDuty"] = @YES;
-    } else {
-        theError[@"onDuty"] = @NO;
-    }
-    
-    
-  //  theError[@"docentUserId"] = [[NSUserDefaults standardUserDefaults] objectForKey:kDocentUserId];
     theError[@"numTimesAppLaunched"] = [[NSUserDefaults standardUserDefaults] objectForKey:kNumLaunchesKey];
     
     
@@ -123,7 +112,7 @@ static NSString* idInfo;
         }
     }];
 }
-*/
+
 
 +(UIColor*)flockGreen {
     return [UIColor colorWithRed:0.29 green:0.78 blue:0.69 alpha:1.0];

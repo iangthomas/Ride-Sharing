@@ -894,7 +894,6 @@
                                              
                                              FIRDatabaseReference *uniqueIdRef = [usersRef child:userProfile[@"uniqueFirebaseId"]];
                                              
-                                             FIRDatabaseReference *pushRef = [uniqueIdRef child:@"pushId"];
                                              
                                              [uniqueIdRef setValue:userProfile withCompletionBlock:
                                               ^(NSError *error, FIRDatabaseReference *ref) {
