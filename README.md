@@ -17,7 +17,7 @@ This single app contains both the passenger and driver mode. It works; but is al
 
 
 # Technical Discussion
-I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a complex backend (*Figure 1*). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (*Figure 2*).
+I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a complex backend (**Figure 1**). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (**Figure 2**). See [**Appendix A**](#appendix-a) for a screenshot of the backend’s entirety.
 
 My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the complex processing taking place on the client app.
 
@@ -30,7 +30,7 @@ In a typical ride sharing app, when a passenger requests a pickup, that request 
 2.  Finds the nearest driver.
 3.  Posts a pickup request in that driver’s directory.
 
-The driver’s app is monitoring their request directory and gives the driver several seconds to respond to that pickup request. If that driver does not respond in time, or decides to “pass” on the pickup, the passenger app then finds the next nearest driver and posts the same request in the other driver’s request directory. That process continues until a driver is found or all nearby drivers “pass”. See *figure 3* for a detailed diagram of this interaction. 
+The driver’s app is monitoring their request directory and gives the driver several seconds to respond to that pickup request. If that driver does not respond in time, or decides to “pass” on the pickup, the passenger app then finds the next nearest driver and posts the same request in the other driver’s request directory. That process continues until a driver is found or all nearby drivers “pass”. See **Figure 3** for a detailed diagram of this interaction. 
 
 <img width="800" src="https://cloud.githubusercontent.com/assets/13486833/23324283/a95f8718-faa1-11e6-92c6-55bff8622f80.jpeg">
 
@@ -90,3 +90,10 @@ Thanks to the ubiquitousness of their service, I simply use the terms “Uber”
 # Thanks
 One extension contained in this app was created by AJ Miller on 4/18/16 and is Copyright © 2016 KnockMedia. <a href="https://github.com/firebase/geofire-objc/issues/27"> Link.</a>
 
+# Appendix A
+## Backend
+This is a screenshot of the entirety of the server backend.
+There are 4 sections, “readyDrivers”, “requests”, “trips” and “users”.
+In this screenshot, there is one user request for pickup, which began as a trip and then was canceled by the passenger.
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23328539/1dfe3bb0-fad8-11e6-93e5-8f57dfdc18f4.jpeg">
