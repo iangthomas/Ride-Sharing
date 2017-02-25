@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let postDictionary = [
             "stars" : "0",
-            "userType" : "anonymous"
+            "userType" : "Anonymous"
             ] as [String : Any]
         
         ref.child("users").childByAutoId().setValue(postDictionary, withCompletionBlock: { (error, requestReference) in

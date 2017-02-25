@@ -381,6 +381,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     
+    
     // MARK: Location Manager - Driver and Passenger
     
     // Driver and Passenger Method
@@ -407,7 +408,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } else {
                 
                 // if in driver mode, update the database with that person's location
-                /// todo mode is now unncessary, remove it
+                /// todo mode is now unnecessary, remove it
                 // driver only sub-section
                 if let mode = userStatusMode, mode == 1 {
                     
@@ -469,56 +470,61 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     // did region change, if so, then update the search criteria
     func startLookingForDrivers () {
         
-        let region = MKCoordinateRegion(center: mapView.centerCoordinate, span: mapView.region.span)
-        let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("readyDrivers"))
-        lookingForDriversInRegionQuery = geoFire.query(with: region)
+        if mapView.region.IsValid {
         
-        // a driver entered search region
-        _ = lookingForDriversInRegionQuery?.observe(.keyEntered, with: { (key, location) in
+            let region = MKCoordinateRegion(center: mapView.centerCoordinate, span: mapView.region.span)
+            let geoFire: GeoFire = GeoFire(firebaseRef: ref.child("readyDrivers"))
+            lookingForDriversInRegionQuery = geoFire.query(with: region)
             
-            self.nearbyDrivers[key!] = location
-            
-            if let driverLocation = location as CLLocation!, let theKey = key as String! {
+            // a driver entered search region
+            _ = lookingForDriversInRegionQuery?.observe(.keyEntered, with: { (key, location) in
                 
-                if self.isDriverBeingDisplayed(theKey) {
+                self.nearbyDrivers[key!] = location
+                
+                if let driverLocation = location as CLLocation!, let theKey = key as String! {
                     
-                    // move the annotaiton instead
-                    self.moveDriverAnnotation(theKey, driverLocation.coordinate)
-                    
-                } else {
-                    // add their annotation
-                    let newDriverAnnotation:driverAnnotation = driverAnnotation.init(driverLocation.coordinate, theKey)
-                    self.mapView.addAnnotation(newDriverAnnotation)
-                }
-            }
-        })
-        
-        // a driver moved in region
-        _ = lookingForDriversInRegionQuery?.observe(.keyMoved, with: { (key, location) in
-            
-            if let driverLocation = location as CLLocation!, let theKey = key as String! {
-                
-                self.moveDriverAnnotation(theKey, driverLocation.coordinate)
-                print("Total Annotation \(self.mapView.annotations.count)")
-            }
-        })
-        
-        // a driver exited in region
-        _ = lookingForDriversInRegionQuery?.observe(.keyExited, with: { (key, location) in
-            
-            self.nearbyDrivers.removeValue(forKey: key!)
-            
-            for annot in self.mapView.annotations {
-                
-                if annot.isMember(of: driverAnnotation.self) {
-                    // todo clean this up
-                    if annot is driverAnnotation {
+                    if self.isDriverBeingDisplayed(theKey) {
                         
-                        self.mapView.removeAnnotation(annot)
+                        // move the annotation instead
+                        self.moveDriverAnnotation(theKey, driverLocation.coordinate)
+                        
+                    } else {
+                        // add their annotation
+                        let newDriverAnnotation:driverAnnotation = driverAnnotation.init(driverLocation.coordinate, theKey)
+                        self.mapView.addAnnotation(newDriverAnnotation)
                     }
                 }
-            }
-        })
+            })
+            
+            // a driver moved in region
+            _ = lookingForDriversInRegionQuery?.observe(.keyMoved, with: { (key, location) in
+                
+                if let driverLocation = location as CLLocation!, let theKey = key as String! {
+                    
+                    self.moveDriverAnnotation(theKey, driverLocation.coordinate)
+                    print("Total Annotation \(self.mapView.annotations.count)")
+                }
+            })
+            
+            // a driver exited in region
+            _ = lookingForDriversInRegionQuery?.observe(.keyExited, with: { (key, location) in
+                
+                self.nearbyDrivers.removeValue(forKey: key!)
+                
+                for annot in self.mapView.annotations {
+                    
+                    if annot.isMember(of: driverAnnotation.self) {
+                        // todo clean this up
+                        if annot is driverAnnotation {
+                            
+                            self.mapView.removeAnnotation(annot)
+                        }
+                    }
+                }
+            })
+        } else {
+        // the map region is not valid. This can be caused by zooming the map out to the scale of seeing entire continents.
+        }
     }
     
     // Passenger Method
@@ -581,7 +587,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 "status" : "requested",
                 "location" : pickupLocation,
                 "timeStamp" : self.getCurrentTime(),
-                "userType" : "anonymous"
+                "userType" : "Anonymous"
                 ] as [String : Any]
             
             attemptToPostRequest.updateChildValues(postDictionary, withCompletionBlock: { (error, requestReference) in
@@ -968,13 +974,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     
                     if limitedStatus == "yours" { // this means it is a new pickup request!
                         
-                        
                         // load info about the person and where they are going
                         let requestersUserID = limitedRequestInfo.object(forKey: "requestingUsersID") as! String
                         
                         let requestExpirationTime: Date = self.universalInternetDateFormatter().date(from: limitedRequestInfo.object(forKey: "requestExpiration") as! String)!
                     
-                        
                         self.ref.child("users").child(requestersUserID).observeSingleEvent(of: .value, with: { (userSnapshot) in
                             
                             // get info about the user
@@ -1447,4 +1451,48 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     //todo add alert view asking if the user or driver really wants to cancel the ride
     
     // bug if you make a request, it is accepted, you cancel it and then request a new one, it says no drivers available, because the database requires the map to move to reference it... perhaps just clear the driversThatPassed dictionary once you are on a trip, (nope that already resets, when you press request button...)
+}
+
+
+//  The following extension was
+//  Created by AJ Miller on 4/18/16.
+//  Copyright © 2016 KnockMedia. All rights reserved.
+//  Source: https://gist.github.com/AJMiller/0def0fd492a09ca22fee095c4526cf68
+
+extension MKCoordinateRegion {
+    var IsValid: Bool {
+        get {
+            let latitudeCenter = self.center.latitude
+            let latitudeNorth = self.center.latitude + self.span.latitudeDelta/2
+            let latitudeSouth = self.center.latitude - self.span.latitudeDelta/2
+            
+            let longitudeCenter = self.center.longitude
+            let longitudeWest = self.center.longitude - self.span.longitudeDelta/2
+            let longitudeEast = self.center.longitude + self.span.longitudeDelta/2
+            
+            let topLeft = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeWest)
+            let topCenter = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeCenter)
+            let topRight = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeEast)
+            
+            let centerLeft = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeWest)
+            let centerCenter = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter)
+            let centerRight = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeEast)
+            
+            let bottomLeft = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeWest)
+            let bottomCenter = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeCenter)
+            let bottomRight = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeEast)
+            
+            return  CLLocationCoordinate2DIsValid(topLeft) &&
+                CLLocationCoordinate2DIsValid(topCenter) &&
+                CLLocationCoordinate2DIsValid(topRight) &&
+                CLLocationCoordinate2DIsValid(centerLeft) &&
+                CLLocationCoordinate2DIsValid(centerCenter) &&
+                CLLocationCoordinate2DIsValid(centerRight) &&
+                CLLocationCoordinate2DIsValid(bottomLeft) &&
+                CLLocationCoordinate2DIsValid(bottomCenter) &&
+                CLLocationCoordinate2DIsValid(bottomRight) ?
+                    true :
+            false
+        }
+    }
 }
