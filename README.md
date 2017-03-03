@@ -17,7 +17,7 @@ This single app contains both the passenger and driver mode. It works; but is al
 
 
 # Technical Discussion
-I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a complex backend (**Figure 1**). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (**Figure 2**). See [**Appendix A**](#appendix-a) for a screenshot of the backend’s entirety.
+I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a heavy backend (**Figure 1**). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (**Figure 2**). See [**Appendix A**](#appendix-a) for a screenshot of the backend’s entirety.
 
 My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the complex processing taking place on the client app.
 
@@ -52,7 +52,7 @@ There are always pros and cons for every approach. The goal should be to take th
 
 The biggest challenge with this App’s approach is caused by version fragmentation. By preforming the complex processing on the client app, it is harder to change how these processes work, unless the user updates their app to the latest version. For example, if you wanted to change the algorithm that determines the “nearest driver” by increasing the importance of “star rating” at the expense of the driver’s distance, you need to push a new app update to all clients, for that change to take effect.
 
-The fantastic advantage of the complex server is that changes can be made and immediately pushed to all clients simultaneously. This ensures that all clients have the same refined user experience. In contrast, the user experience in my approach is dependent on all users updating the App on their devices. Assuming that all users update their app (which is not a reasonable assumption) it will take several days to deploy algorithmic changes, at best. But many users don’t update their apps, so they would never get those changes.
+The fantastic advantage of the heavy backend is that changes can be made and immediately pushed to all clients simultaneously. This ensures that all clients have the same refined user experience. In contrast, the user experience in my approach is dependent on all users updating the App on their devices. Assuming that all users update their app (which is not a reasonable assumption) it will take several days to deploy algorithmic changes, at best. But many users don’t update their apps, so they would never get those changes.
 
 How do you still allow non-updated users to participate in the App even if the underlying algorithms have changed? Do you silo user bases with different versions? In that scenario, all drivers and passengers who continue to use, say the December 2016 version of the App, can continue to use the App with other non-updated users. Or do you create an inconvenient alert telling users to update the App before attempting to use it?
 
