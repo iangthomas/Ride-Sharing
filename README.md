@@ -17,9 +17,9 @@ This single app contains both the passenger and driver mode. It works; but is al
 
 
 # Technical Discussion
-I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a heavy backend (**Figure 1**). My idea is to reverse this paradigm: with a complex client app powered by a comparatively simple backend (**Figure 2**). See [**Appendix A**](#appendix-a) for a screenshot of the backend’s entirety.
+I built this app without a custom backend. I’m generalizing for sake of discussion, but many ride sharing apps use a comparatively simple client app that communicates with a heavy backend (**Figure 1**). My idea is to reverse this paradigm: with a heavy client app powered by a comparatively light backend (**Figure 2**). See [**Appendix A**](#appendix-a) for a screenshot of the backend’s entirety.
 
-My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the complex processing taking place on the client app.
+My simple backend is akin to a messaging board, it is the way for the drivers and passengers to pass messages; with all the heavy processing taking place on the client app.
 
 <img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23324514/14842f20-faa3-11e6-9757-b5bc460647be.jpeg">
 <img width="400" src="https://cloud.githubusercontent.com/assets/13486833/23324456/bddce4e6-faa2-11e6-8b13-50cdb8b7ea48.jpeg">
@@ -35,9 +35,9 @@ The driver’s app is monitoring their request directory and gives the driver se
 <img width="800" src="https://cloud.githubusercontent.com/assets/13486833/23324283/a95f8718-faa1-11e6-92c6-55bff8622f80.jpeg">
 
 
-Smartphones are incredibly powerful; instead of building a custom cloud backend, why not use an off-the-shelf backend and the phones themselves to handle the complex processing? By having client apps do the heavy lifting, the App can scale quickly and precisely, in proportion with the number of users.
+Smartphones are incredibly powerful; instead of building a custom cloud backend, why not use an off-the-shelf backend and the phones themselves to handle the heavy processing? By having client apps do the heavy lifting, the App can scale quickly and precisely, in proportion with the number of users.
 
-This simplified backend approach, of course, still requires a backend, and Google’s "Firebase" is uniquely suited to the task. With Firebase, the client app listens for changes in specified directories and is instantly notified of changes, such as a driver receiving a pickup request. This way, the client app does not periodically query the server for updates, updates are automatically pushed to the client app as needed. This minimizes the number of server calls / reduces network activity.
+This simplified backend approach, of course, still requires a backend, and Google’s "Firebase" is uniquely suited to the task. With Firebase, the client app listens for changes in specified directories and is instantly notified of changes, such as a driver receiving a pickup request. This way, the client app does not periodically query the backend for updates, updates are automatically pushed to the client app as needed. This minimizes the number of backend calls / reduces network activity.
 
 
 # Potential Drawbacks and Solutions
@@ -57,7 +57,7 @@ The fantastic advantage of the heavy backend is that changes can be made and imm
 How do you still allow non-updated users to participate in the App even if the underlying algorithms have changed? Do you silo user bases with different versions? In that scenario, all drivers and passengers who continue to use, say the December 2016 version of the App, can continue to use the App with other non-updated users. Or do you create an inconvenient alert telling users to update the App before attempting to use it?
 
 ## Potential Solutions 
-One possible solution is to create server variables for the aspects of the App most likely to change. For example, drivers are currently  given 10 seconds to decide whether to "accept" the passenger pickup request or “pass”. That 10 seconds can be a variable that lives on the server, and the backend silently notifies client apps when that number is changed, say to 20 seconds.
+One possible solution is to create backend variables for the aspects of the App most likely to change. For example, drivers are currently  given 10 seconds to decide whether to "accept" the passenger pickup request or “pass”. That 10 seconds can be a variable that lives on the backend, and the backend silently notifies client apps when that number is changed, say to 20 seconds.
 
 It would be fascinating to see a pie-graph breakdown of app versions for the major ride sharing companies. What percentage of their user base is on the latest version and what percentage is still using versions from months ago? Those percentages likely vary depending on the platform; given the currently larger OS fragmentation on Android, iOS users are more likely to be more updated. But that may be a moot point: clients of major ride sharing apps may have a higher propensity to “stay current” with app updates compared to other platform users. It is interesting to note that in December 2016, Uber updated their app four times and Lyft updated their app three times. Regardless of the ability to make changes on the backend, it is clearly still necessary to update the client app often.
 
@@ -92,7 +92,7 @@ One extension contained in this app was created by AJ Miller on 4/18/16 and is C
 
 # Appendix A
 ## Backend
-This is a screenshot of the entirety of the server backend.
+This is a screenshot of the entirety of the backend.
 There are 4 sections, “readyDrivers”, “requests”, “trips” and “users”.
 In this screenshot, there is one user request for pickup, which began as a trip and then was canceled by the passenger.
 
