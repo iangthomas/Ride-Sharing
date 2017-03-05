@@ -1,5 +1,5 @@
 # Ride-Sharing
-A minimum viable product of a ride sharing app, like Uber of Lyft.
+A minimum viable product of a ride sharing app, like Uber or Lyft.
 
 Could someone make their own minimally viable version of Uber or Lyft in a weekend? **You bet they can.** 
 
